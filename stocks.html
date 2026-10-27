@@ -92,10 +92,56 @@
   .debate{margin-top:4px} .side{border-left:4px solid;padding:10px 14px;margin-bottom:10px;border-radius:0 10px 10px 0}
   .side.red{border-color:#B03A2E;background:#FDF2F0} .side.blue{border-color:#2E5A8A;background:#F0F4FA} .side.judge{border-color:#8A7D3B;background:#F7F3E2}
   .side strong{display:block;margin-bottom:4px} .side p{margin:0;line-height:1.8;font-size:14px}
+
+  [data-theme="dark"]{--bg:#1E1A16;--card:#2A241E;--text:#E8E2D6;--muted:#9C9484;--line:#3D362C;--accent:#E8604C;--green:#E8604C}
+  .theme-toggle{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;width:36px;height:36px;font-size:16px;line-height:1;padding:0}
+  .theme-toggle:hover{border-color:var(--accent)}
+  [data-theme="dark"] body{background-image:radial-gradient(rgba(200,180,140,.07) 1px,transparent 1.2px)}
+  [data-theme="dark"] header{background:rgba(30,26,22,.95)}
+  [data-theme="dark"] nav a{color:#E8E2D6}
+  [data-theme="dark"] nav a:hover{background:#2E2820}
+  [data-theme="dark"] nav a.active{background:#3A3226;color:#F2EEE3}
+  [data-theme="dark"] h2,[data-theme="dark"] h3{color:#F2EEE3}
+  [data-theme="dark"] .item p,[data-theme="dark"] .grid3 p,[data-theme="dark"] .grid2 p,[data-theme="dark"] .stock p,[data-theme="dark"] .sheet p,[data-theme="dark"] .page-intro,[data-theme="dark"] .detail,[data-theme="dark"] .report-item p,[data-theme="dark"] .pending p,[data-theme="dark"] .qa p{color:#C9C2B2}
+  [data-theme="dark"] .tag{color:#9C9484}
+  [data-theme="dark"] .search input{background:#221D18;color:#E8E2D6;border-color:#3D362C}
+  [data-theme="dark"] .search input::placeholder{color:#9C9484}
+  [data-theme="dark"] .search-results{border-color:#3D362C;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+  [data-theme="dark"] .search-hit{border-bottom-color:#3D362C}
+  [data-theme="dark"] .search-hit span,[data-theme="dark"] .search-empty,[data-theme="dark"] .report-item .meta{color:#9C9484}
+  [data-theme="dark"] .search-hit:hover,[data-theme="dark"] .more-btn:hover,[data-theme="dark"] .cat-links a:hover{background:#3A3226;color:#F08066}
+  [data-theme="dark"] .grid3 a:hover,[data-theme="dark"] .grid2 a:hover{border-color:#57493A}
+  [data-theme="dark"] .page-intro,[data-theme="dark"] .pending{border-color:#57493A}
+  [data-theme="dark"] .bartrack{background:#3A3226}
+  [data-theme="dark"] .col-label{background:#3A3226;color:#F08066}
+  [data-theme="dark"] .qa-q{background:#2A241E;border-left-color:#E8604C}
+  [data-theme="dark"] .qa-a{background:#2E2A1C;border-left-color:#8A7D3B}
+  [data-theme="dark"] .qa-label.q{background:#3A3226;color:#F08066}
+  [data-theme="dark"] .qa-label.a{background:#3A3423;color:#C9B978}
+  [data-theme="dark"] .side.red{background:#33211E;border-color:#E8604C}
+  [data-theme="dark"] .side.blue{background:#1E2632;border-color:#6E97C4}
+  [data-theme="dark"] .side.judge{background:#2E2A1C;border-color:#8A7D3B}
+  [data-theme="dark"] .barfill.rsi{background:#E8604C}
+  [data-theme="dark"] .barfill.pos{background:#B3A05C}
+  [data-theme="dark"] section.block h2,[data-theme="dark"] .cat h2,[data-theme="dark"] .navsec h2{border-bottom-color:#6B5F4C}
+  [data-theme="dark"] .qa-line{border-top-color:#6B5F4C}
+  [data-theme="dark"] .stock-line{border-top-color:#6B5F4C}
+  [data-theme="dark"] .num,[data-theme="dark"] .accent,[data-theme="dark"] .ext,[data-theme="dark"] .navsec .secnum,[data-theme="dark"] .pair-date{color:#E8604C}
+  [data-theme="dark"] .stock .up,[data-theme="dark"] .stock .down{color:#F2EEE3}
+  [data-theme="dark"] .qa .who{color:#F2EEE3}
+  [data-theme="dark"] .datarow{border-bottom-color:#3D362C}
+  [data-theme="dark"] .back-top{background:#2A241E;border-color:#3D362C;color:#E8604C;box-shadow:0 2px 10px rgba(0,0,0,.45)}
+  [data-theme="dark"] .close{background:#3A3226;color:#E8E2D6}
+  [data-theme="dark"] .tabs button.active{background:#3A3226;color:#F08066;border-color:#3D362C}
+  [data-theme="dark"] .cat .count,[data-theme="dark"] .note{color:#9C9484}
+  [data-theme="dark"] .fb input{background:#221D18;color:#E8E2D6;border-color:#3D362C}
+  [data-theme="dark"] .fb input::placeholder{color:#9C9484}
 </style>
+<script>try{var _t=localStorage.getItem("theme");if(_t==="dark"){document.documentElement.setAttribute("data-theme","dark")}}catch(e){}</script>
 </head>
 <body>
-<header id="top"><div class="top"><div class="logo">美食佳<span>的知识库</span></div><nav><a href="wechat.html">微信畅谈</a><a href="stocks.html" class="active">个股成长</a><a href="jobs.html">招聘打野</a><a href="datanav.html">数据导航</a><a href="https://newsnow-bex.pages.dev/c/focus" target="_blank" rel="noopener">新闻聚合 ↗</a></nav><div class="search"><input id="global-search" placeholder="搜索全站…" autocomplete="off"><div class="search-results" id="search-results"></div></div></div></header>
+<header id="top"><div class="top"><div class="logo">美食佳<span>的知识库</span></div><nav><a href="wechat.html">微信畅谈</a><a href="stocks.html" class="active">个股成长</a><a href="jobs.html">招聘打野</a><a href="datanav.html">数据导航</a><a href="https://newsnow-bex.pages.dev/c/focus" target="_blank" rel="noopener">新闻聚合 ↗</a></nav><button class="theme-toggle" id="theme-toggle" aria-label="切换夜间模式">🌙</button><div class="search"><input id="global-search" placeholder="搜索全站…" autocomplete="off"><div class="search-results" id="search-results"></div></div></div></header>
+<script>(function(){var b=document.getElementById("theme-toggle");if(!b)return;function paint(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.textContent=d?"☀️":"🌙";b.setAttribute("aria-label",d?"切换到浅色":"切换到夜间")}b.addEventListener("click",function(){var dark=document.documentElement.getAttribute("data-theme")==="dark";try{localStorage.setItem("theme",dark?"light":"dark")}catch(e){}if(dark){document.documentElement.removeAttribute("data-theme")}else{document.documentElement.setAttribute("data-theme","dark")}paint()});paint()})();</script>
 <div class="wrap">
   <p class="page-intro">每只个股按日期分行，左边盘前报告、右边收盘报告，日期从近到远；暂按市值排序（非持仓大小），两只 ETF 排在 A 股之后。只展示公开行情与技术指标，不展示资产金额；不构成投资建议。开盘与 MA5 除云铝外暂无可靠口径，未编造，待后续日报补入。红方、蓝方、中立裁判以行业变化、政策变化、新闻资讯、个股基本面为主，技术指标只作支撑，新闻以已核实的标题为准，正文未读的不展开；已卖出个股统一放在页面最后的已卖出区，历史不删。</p>
 <div class="block">
@@ -138,7 +184,7 @@
 </div>
 <p style="color:#666;line-height:1.8;font-size:14px">组别趋势（简单平均，非按仓位加权）：煤炭 10-27 +1.30%，20 日 -10.39%；铝 10-27 +2.25%，20 日 -3.40%。总裁判：中性偏谨慎，一日反弹不改 20 日趋势，基调是观察、不追、不抄。</p>
   </div>
-  <footer>更新于 2026-10-27 晚 · V2.16。个股内容不构成投资建议；不展示资产金额。</footer>
+  <footer>更新于 2026-10-27 晚 · V2.17。个股内容不构成投资建议；不展示资产金额。</footer>
 </div>
 
 
