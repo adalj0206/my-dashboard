@@ -3,165 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的数据看板</title>
-<meta name="description" content="专属数据看板：瀑布流卡片形式展示流量、收入、内容、用户等核心指标。示例数据，改一处 DATA 即可换成你自己的数据。">
+<title>美食佳的知识库</title>
+<meta name="description" content="美食佳的知识库：微信、个股、招聘三类沟通内容整理成的知识库。版式参考知识库网站的结构，文案与数据均为本站原创示例。">
 <style>
-  :root{--bg:#f6f6f6;--card:#fff;--text:#222;--muted:#8a8a8a;--line:#eee;--red:#ff2442;--red-soft:#fff0f2;--radius:16px}
-  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  :root{--bg:#fbfaf7;--card:#fff;--text:#1d1d1f;--muted:#6e6e73;--line:#e8e4dc;--accent:#b45309;--accent-soft:#fdf3e3;--green:#2f7d4f;--blue:#2b5ea7;--radius:16px}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",serif}
   a{color:inherit;text-decoration:none} button{font:inherit;cursor:pointer}
-  /* 顶栏：对标 explore 的搜索顶栏形式，但品牌与文案均为原创 */
-  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .top{max-width:1380px;margin:0 auto;padding:12px 20px;display:flex;gap:16px;align-items:center}
-  .logo{font-size:20px;font-weight:800;white-space:nowrap}.logo span{color:var(--red)}
-  .search{flex:1;max-width:560px;display:flex;background:#f2f2f2;border-radius:999px;padding:8px 14px;gap:8px}
+  header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .logo{font-size:20px;font-weight:800;white-space:nowrap}.logo span{color:var(--accent)}
+  nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+  nav a{font-size:14px;padding:7px 12px;border-radius:999px} nav a:hover{background:#f0ece3}
+  .search{flex:1;min-width:220px;max-width:420px;display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;gap:8px}
   .search input{border:0;outline:0;background:transparent;flex:1;font-size:14px}
-  .pill{border:0;background:var(--red);color:#fff;border-radius:999px;padding:8px 16px;font-size:14px}
-  .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff8a5c,#ff2442);color:#fff;display:grid;place-items:center;font-weight:700}
-  .layout{max-width:1380px;margin:0 auto;padding:20px;display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start}
-  /* 左侧分类导航 */
-  aside{position:sticky;top:73px;background:var(--card);border-radius:var(--radius);padding:12px}
-  aside h3{font-size:13px;color:var(--muted);margin:8px 10px}
-  .cat{display:flex;justify-content:space-between;width:100%;border:0;background:transparent;text-align:left;padding:10px;border-radius:10px;font-size:15px}
-  .cat.active{background:var(--red-soft);color:var(--red);font-weight:700}
-  .tip{margin:12px 10px 6px;padding:12px;background:#fafafa;border-radius:12px;font-size:13px;line-height:1.7;color:#666}
-  .hero{display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap;margin-bottom:16px}
-  .hero h1{margin:0 0 6px;font-size:26px}.hero p{margin:0;color:var(--muted);font-size:14px}
-  .range{display:flex;gap:8px}.range button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:13px}
-  .range button.active{background:var(--text);color:#fff;border-color:var(--text)}
-  /* KPI 条 */
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
-  .kpi{background:var(--card);border-radius:var(--radius);padding:16px}
-  .kpi small{color:var(--muted)}.kpi b{display:block;font-size:26px;margin:6px 0}.kpi .up{color:#0aaf5a;font-size:13px}.kpi .down{color:var(--red);font-size:13px}
-  .controls{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
-  .controls select{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#fff}
-  .tabs{display:none;gap:8px;overflow:auto;padding-bottom:4px}.tabs button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px}
-  .tabs button.active{background:var(--text);color:#fff}
-  /* 瀑布流：核心对标形式，多列、卡片高度不一 */
-  .masonry{column-count:4;column-gap:16px}
-  @media(max-width:1300px){.masonry{column-count:3}}
-  @media(max-width:1000px){.layout{grid-template-columns:1fr}aside{display:none}.tabs{display:flex}.kpis{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:640px){.masonry{column-count:2}.kpis{grid-template-columns:1fr 1fr}.search{max-width:none}.top{flex-wrap:wrap}}
-  .card{background:var(--card);border-radius:var(--radius);overflow:hidden;margin:0 0 16px;break-inside:avoid;cursor:pointer;border:1px solid #f0f0f0}
-  .card:hover{box-shadow:0 8px 28px rgba(0,0,0,.08)}
-  .visual{padding:16px 16px 4px}.visual canvas{width:100%;height:150px;display:block}
-  .visual .tall{height:210px}.visual .short{height:110px}
-  .donut{display:flex;gap:12px;align-items:center}.legend{font-size:13px;line-height:1.9;color:#555}.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px}
-  .row{display:flex;align-items:center;gap:8px;font-size:13px;margin:8px 0}.row .bar{flex:1;height:8px;background:#f0f0f0;border-radius:99px;overflow:hidden}.row .bar i{display:block;height:100%;background:linear-gradient(90deg,#ffb347,#ff2442);border-radius:99px}
-  .body{padding:4px 16px 12px}.body h2{font-size:16px;line-height:1.5;margin:6px 0}.body p{font-size:13px;color:#666;line-height:1.7;margin:0}
-  .meta{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid #f5f5f5;font-size:13px;color:#666}
-  .meta .av{width:24px;height:24px;border-radius:50%;background:#eee;display:grid;place-items:center;font-size:12px}
-  .meta .sp{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .like,.fav{border:0;background:transparent;font-size:13px;color:#666}.like.on,.fav.on{color:var(--red)}
-  .tag{display:inline-block;background:var(--red-soft);color:var(--red);border-radius:6px;padding:2px 7px;font-size:12px;margin-right:6px}
-  .empty{background:#fff;border-radius:var(--radius);padding:40px;text-align:center;color:var(--muted);display:none}
-  footer{max-width:1380px;margin:0 auto;padding:10px 20px 40px;color:var(--muted);font-size:13px;line-height:1.8}
-  /* 详情弹窗 */
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
+  .hero{text-align:center;padding:24px 0 10px}.hero .sub{color:var(--muted);letter-spacing:.08em;font-size:14px}
+  .hero h1{font-size:42px;line-height:1.2;margin:12px 0}.hero p{font-size:17px;line-height:1.8;color:#444;max-width:760px;margin:0 auto}
+  .hero p b{color:var(--accent)}
+  .stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:22px 0;font-size:14px;color:var(--muted)}
+  .stats b{display:block;font-size:26px;color:var(--text);text-align:center}
+  .index{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0}
+  .index a{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:block}
+  .index a:hover{box-shadow:0 8px 24px rgba(0,0,0,.07);border-color:#d9d2c2}
+  .index b{font-size:16px}.index p{font-size:13px;line-height:1.7;color:var(--muted);margin:8px 0 0}
+  .index .go{color:var(--accent);font-size:13px;font-weight:700}
+  .qa{background:#1d1d1f;color:#fff;border-radius:20px;padding:26px;margin:28px 0}
+  .qa h2{margin:0 0 6px}.qa p{color:#c9c9c9;line-height:1.7;margin:0 0 16px}
+  .qa form{display:flex;gap:10px;flex-wrap:wrap}.qa input{flex:1;min-width:220px;border:0;border-radius:999px;padding:12px 16px;font-size:15px}
+  .qa button{border:0;background:var(--accent);color:#fff;border-radius:999px;padding:12px 22px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chips button{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 12px;font-size:13px}
+  .qa-result{margin-top:18px;display:grid;gap:10px}.qa-result .res{background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;line-height:1.7;font-size:14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:30px 0 10px}.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px}
+  .tabs button.active{background:var(--text);color:#fff;border-color:var(--text)}
+  .notice{background:var(--accent-soft);border:1px solid #f0d9a8;border-radius:12px;padding:12px 16px;font-size:13px;line-height:1.7;color:#6b4a12;margin:16px 0}
+  section.block{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;margin:22px 0}
+  section.block h2{font-size:26px;margin:0 0 6px} section.block .desc{color:var(--muted);line-height:1.7;margin:0 0 20px}
+  .cols{display:grid;grid-template-columns:340px 1fr;gap:26px;align-items:start}
+  .toplist h3{font-size:14px;color:var(--muted);letter-spacing:.06em;margin:0 0 12px}
+  .toprow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f2efe8;font-size:15px}
+  .toprow .n{width:26px;color:var(--muted);font-size:13px}.toprow .name{flex:1}.toprow .bar{width:90px;height:7px;background:#f0ece3;border-radius:99px;overflow:hidden}.toprow .bar i{display:block;height:100%;background:var(--accent);border-radius:99px}.toprow b{width:36px;text-align:right}
+  .entries{display:grid;gap:12px}
+  .entry{border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer}
+  .entry:hover{border-color:#d9d2c2;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+  .more-btn{width:100%;margin-top:12px;border:1px solid var(--line);background:#faf8f2;border-radius:999px;padding:10px;font-size:14px}
+  .more-btn:hover{background:#f0ece3}
   .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;place-items:center;z-index:50;padding:16px}
-  .modal.open{display:grid}.sheet{background:#fff;border-radius:20px;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:22px}
-  .sheet canvas{width:100%;height:240px}.sheet table{width:100%;border-collapse:collapse;font-size:14px;margin-top:12px}
-  .sheet th,.sheet td{border-bottom:1px solid #f0f0f0;padding:9px 6px;text-align:left}
+  .modal.open{display:grid}.sheet{background:#fff;border-radius:20px;max-width:620px;width:100%;max-height:88vh;overflow:auto;padding:24px}
+  .sheet h3{font-size:20px;line-height:1.5;margin:10px 0}.sheet p{line-height:1.8;color:#444}
   .close{float:right;border:0;background:#f2f2f2;border-radius:50%;width:32px;height:32px}
-  .check{display:flex;gap:10px;align-items:center;font-size:14px;margin:10px 0}.check s{color:#999}
+  .entry .meta{font-size:13px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+  .entry h4{margin:8px 0;font-size:16px;line-height:1.5}.entry p{margin:0;color:#444;line-height:1.7;font-size:14px}
+  .tag{display:inline-block;background:#f0ece3;border-radius:6px;padding:2px 8px;font-size:12px;margin-right:6px}
+  .status{color:var(--green);font-weight:700}
+  .graph{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:center}
+  .graph div{background:#faf8f2;border:1px solid var(--line);border-radius:14px;padding:18px}.graph b{display:block;font-size:26px}
+  .graph span{color:var(--muted);font-size:13px}
+  .sisters{display:grid;grid-template-columns:1fr 1fr;gap:14px}.sisters a{border:1px solid var(--line);border-radius:14px;padding:18px;display:block;background:#fff}
+  .sisters a p{color:var(--muted);line-height:1.7;font-size:14px;margin:8px 0 0}
+  footer{color:var(--muted);font-size:13px;line-height:1.9;text-align:center;padding:10px 0 30px}
+  .empty{color:var(--muted);text-align:center;padding:28px;display:none}
+  @media(max-width:820px){.hero h1{font-size:32px}.index{grid-template-columns:1fr 1fr}.cols{grid-template-columns:1fr}.graph{grid-template-columns:1fr 1fr}.sisters{grid-template-columns:1fr}}
+  @media(max-width:520px){.index{grid-template-columns:1fr}.graph{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <header><div class="top">
-  <div class="logo">我的<span>数据</span>看板</div>
-  <label class="search">🔍 <input id="q" placeholder="搜索卡片：比如 流量、收入、粉丝…"></label>
-  <button class="pill" onclick="document.getElementById('feed').scrollIntoView({behavior:'smooth'})">查看看板</button>
-  <div class="avatar" title="我的账号">我</div>
+  <div class="logo">美食佳<span>的知识库</span></div>
+  <label class="search">🔍 <input id="q" placeholder="搜索三类沟通：比如 薪酬、估值、面试…"></label>
+  <nav><a href="#wechat">微信沟通</a><a href="#stocks">个股沟通</a><a href="#jobs">招聘沟通</a><a href="#assistant">沟通助手</a></nav>
 </div></header>
 
-<div class="layout">
-  <aside>
-    <h3>看板分类</h3>
-    <div id="cats"></div>
-    <div class="tip">💡 下面全部是<strong>示例数据</strong>，不是你的真实账号数据。把页面底部 DATA 里改成你自己的数字，整站就变成你的专属看板；也可以只改 data.json 的思路复用到别的项目。</div>
-  </aside>
-
-  <main>
-    <div class="hero">
-      <div><h1>今日概览</h1><p id="today">正在加载日期… · 数据更新于今天 09:00 · 示例数据</p></div>
-      <div class="range" id="range">
-        <button data-r="7">近 7 天</button><button data-r="30" class="active">近 30 天</button><button data-r="90">近 90 天</button>
-      </div>
+<div class="wrap">
+  <div class="hero">
+    <div class="sub">WeChat · 个股 · 招聘</div>
+    <h1>美食佳的知识库</h1>
+    <p>微信、个股、招聘三类沟通内容，全部按主题、对象、公司整理成一张知识库，<b>每个主题、每只个股、每家公司都能一键追到原始沟通记录</b>。</p>
+    <div class="stats">
+      <div><b>680</b>条微信沟通</div>
+      <div><b>620</b>条个股讨论</div>
+      <div><b>340</b>条招聘沟通</div>
+      <div><b>58</b>个沟通主题</div>
     </div>
+  </div>
 
-    <section class="kpis" id="kpis"></section>
-    <div class="tabs" id="tabs"></div>
+  <div class="index">
+    <a href="#wechat"><b>📬 微信沟通总览 →</b><p>按联系人、群聊和主题整理微信里的沟通记录。</p><span class="go">进入微信栏目 →</span></a>
+    <a href="#stocks"><b>💹 个股沟通总览 →</b><p>按个股、行业和讨论主题整理个股相关的沟通记录。</p><span class="go">进入个股栏目 →</span></a>
+    <a href="#jobs"><b>💼 招聘沟通总览 →</b><p>按公司、岗位和招聘流程整理招聘相关的沟通记录。</p><span class="go">进入招聘栏目 →</span></a>
+    <a href="#graph"><b>🕸️ 沟通图谱 →</b><p>联系人、个股、公司和主题之间的关联，一张图看清全貌。</p><span class="go">查看沟通图谱 →</span></a>
+  </div>
 
-    <div class="controls">
-      <span style="font-size:14px;color:#666">排序：</span>
-      <select id="sort"><option value="hot">按热度</option><option value="new">按最新</option></select>
-      <label style="font-size:14px;color:#666"><input type="checkbox" id="onlyFav"> 只看我的收藏</label>
-      <span id="count" style="margin-left:auto;font-size:13px;color:#999"></span>
+  <div class="qa" id="assistant">
+    <h2>沟通助手 BETA</h2>
+    <p>有沟通记录想翻出来？输入关键词，本页会在下面的示例记录里帮你找，每条结果都标明出处栏目和日期。</p>
+    <form onsubmit="return askAssistant(event)">
+      <input id="qaInput" placeholder="比如：薪酬、估值、面试、社保…">
+      <button type="submit">开始查找 →</button>
+    </form>
+    <div class="chips">
+      <button onclick="quickAsk('薪酬')">薪酬</button>
+      <button onclick="quickAsk('估值')">估值</button>
+      <button onclick="quickAsk('面试')">面试</button>
+      <button onclick="quickAsk('社保')">社保</button>
     </div>
+    <div class="qa-result" id="qaResult"></div>
+  </div>
 
-    <section class="masonry" id="feed"></section>
-    <div class="empty" id="empty">没有匹配的卡片，换个关键词或分类试试。</div>
-  </main>
+  <div class="tabs" id="tabs">
+    <button data-tab="all" class="active" onclick="setTab('all')">全部栏目</button>
+    <button data-tab="wechat" onclick="setTab('wechat')">微信沟通</button>
+    <button data-tab="stocks" onclick="setTab('stocks')">个股沟通</button>
+    <button data-tab="jobs" onclick="setTab('jobs')">招聘沟通</button>
+  </div>
+  <div class="notice">⚠️ 本页全部是<b>示例数据</b>，不是真实微信记录、真实持仓和真实招聘进展，个股名称已脱敏，不构成投资建议。要换成你自己的内容，把页面底部 DATA 里三组数组替换即可。</div>
+
+  <section class="block" id="wechat" data-section="wechat">
+    <h2>📬 微信沟通</h2>
+    <p class="desc">微信里的沟通按联系人和主题整理，重点看谁聊得多、聊什么、下一步是什么。</p>
+    <div class="cols"><div class="toplist"><h3>TOP 10 · 提及最多</h3><div id="top-wechat"></div></div><div><h3 style="font-size:14px;color:#6e6e73">近期沟通记录 · 默认展示最近 3 条</h3><div class="entries" id="entries-wechat"></div><button class="more-btn" id="more-wechat" onclick="toggleExpand('wechat')"></button></div></div>
+  </section>
+
+  <section class="block" id="stocks" data-section="stocks">
+    <h2>💹 个股沟通</h2>
+    <p class="desc">个股相关的讨论按个股和主题整理，重点看估值逻辑、分歧点和需要再核对的信息。</p>
+    <div class="cols"><div class="toplist"><h3>TOP 10 · 提及最多</h3><div id="top-stocks"></div></div><div><h3 style="font-size:14px;color:#6e6e73">近期沟通记录 · 默认展示最近 3 条</h3><div class="entries" id="entries-stocks"></div><button class="more-btn" id="more-stocks" onclick="toggleExpand('stocks')"></button></div></div>
+  </section>
+
+  <section class="block" id="jobs" data-section="jobs">
+    <h2>💼 招聘沟通</h2>
+    <p class="desc">招聘相关的沟通按公司和流程整理，重点看岗位、薪资范围、流程节点和待回复事项。</p>
+    <div class="cols"><div class="toplist"><h3>TOP 10 · 提及最多</h3><div id="top-jobs"></div></div><div><h3 style="font-size:14px;color:#6e6e73">近期沟通记录 · 默认展示最近 3 条</h3><div class="entries" id="entries-jobs"></div><button class="more-btn" id="more-jobs" onclick="toggleExpand('jobs')"></button></div></div>
+  </section>
+
+  <section class="block" id="graph">
+    <h2>🕸️ 沟通图谱</h2>
+    <p class="desc">三类沟通不是孤立的：同一个人可能既聊个股又介绍招聘机会，同一主题可能横跨微信和招聘沟通。</p>
+    <div class="graph">
+      <div><b>42</b><span>微信联系人节点</span></div>
+      <div><b>36</b><span>个股主题节点</span></div>
+      <div><b>24</b><span>招聘公司节点</span></div>
+      <div><b>58</b><span>沟通主题节点</span></div>
+    </div>
+    <p style="line-height:1.8;color:#444">示例关联：微信沟通里的“薪酬体系”主题，同时出现在招聘沟通的岗位讨论里；个股沟通里的“分红与回购”主题，同时出现在微信群聊的讨论里。把 DATA 换成真实记录后，这些关联会按真实的联系人、个股和公司重新生成。</p>
+  </section>
+
+  <section class="block">
+    <h2>相关入口</h2>
+    <div class="sisters">
+      <a href="https://github.com/adalj0206/my-dashboard"><b>GitHub 仓库 · my-dashboard ↗</b><p>本站源代码和说明，改数据、改栏目都从这里开始。</p></a>
+      <a href="https://my-dashboard-26t.pages.dev/"><b>线上地址 · 本站 ↗</b><p>Cloudflare Pages 上的正式地址，改版后重新部署的就是这一版。</p></a>
+    </div>
+  </section>
+
+  <div class="empty" id="empty">没有匹配的记录，换个关键词或栏目试试。</div>
+
+  <footer>
+    <h3 style="color:#1d1d1f">关于本站</h3>
+    <p style="max-width:760px;margin:0 auto">美食佳把微信、个股、招聘三类沟通整理成一张互相连接的知识库。每个主题、每只个股、每家公司都能一键追到沟通记录，而不是散落在聊天记录里翻不到。<br>版式参考了 learnbuffett.com 的知识库结构：标题区、索引卡、TOP 榜、问答区和图谱区；本站的品牌、文案和数据均为原创示例，没有复制对方的内容。<br>V 1.1 · 本版改版说明：每个栏目下近期沟通记录默认只展示最近 3 条，其余点击“查看其余条数”展开，点击单条记录可查看明细。</p>
+  </footer>
 </div>
 
-<footer>
-  部署方式：把这个 index.html 推到 GitHub 仓库 → Cloudflare Pages 选择该仓库 → 构建命令留空、输出目录选根目录，即可上线，全程免费静态托管。<br>
-  注意：本页只对标了 explore 页的“瀑布流卡片 + 搜索 + 分类”这种版式，没有复制小红书的品牌、Logo、图片和任何真实用户内容；卡片里的图表均为本站原创示例。
-</footer>
-
-<div class="modal" id="modal"><div class="sheet">
-  <button class="close" onclick="closeModal()">✕</button>
-  <h2 id="mTitle" style="margin-top:4px"></h2><p id="mDesc" style="color:#666;line-height:1.7"></p>
-  <div id="mVisual"></div><div id="mTable"></div>
+<div class="modal" id="detailModal"><div class="sheet">
+  <button class="close" onclick="closeDetail()">✕</button>
+  <div id="dMeta" style="font-size:13px;color:#888"></div>
+  <h3 id="dTitle"></h3><p id="dText"></p>
+  <div id="dTags" style="margin:10px 0"></div>
+  <div id="dStatus" style="font-size:14px"></div>
 </div></div>
 <script>
 /* ================== 改这里，就换成你自己的数据 ================== */
-const KPIS=[
-  {label:"今日访客",value:"12,480",delta:"▲ 18.2% 较昨日",up:true},
-  {label:"新增关注",value:"1,236",delta:"▲ 9.4% 较昨日",up:true},
-  {label:"总互动量",value:"48,902",delta:"▲ 22.7% 较上周",up:true},
-  {label:"预估收入",value:"¥ 8,640",delta:"▼ 3.1% 较昨日",up:false},
-];
-const CATS=[["all","全部"],["traffic","流量"],["income","收入"],["content","内容"],["user","用户"],["health","健康"],["efficiency","效率"]];
-/* 每张卡：kind 可选 line / bars / donut / list / progress / insight / feed / todo */
-const CARDS=[
- {id:"c1",cat:"traffic",title:"流量趋势：搜索与推荐双通道都在涨",desc:"近 30 天日访客从 6 千爬到 1.2 万，推荐占比首次超过搜索。",source:"流量中心",days:1,likes:1284,kind:"line",values:[62,68,71,66,78,84,81,92,88,95,102,98,110,105,118,121,115,128,134,129,141,138,150,147,158,162,155,170,178,182],labels:["第1天","第10天","第20天","第30天"]},
- {id:"c2",cat:"income",title:"收入构成：会员仍是基本盘",desc:"会员 52%、广告 28%、打赏 20%。打赏增速最快，值得单独做一期复盘。",source:"财务看板",days:2,likes:862,kind:"donut",parts:[["会员",52,"#ff2442"],["广告",28,"#ffb347"],["打赏",20,"#7c5cff"]]},
- {id:"c3",cat:"content",title:"内容表现 Top 5",desc:"长图文的完读率明显高于短动态，标题带数字的点击高出平均 31%。",source:"内容中心",days:1,likes:2041,kind:"list",rows:[["干货长图文合集",96,12480],["一周复盘模板",88,10230],["工具测评",76,8910],["新手避坑指南",69,7640],["问答精选",61,6580]]},
- {id:"c4",cat:"user",title:"粉丝增长：周末是高峰",desc:"周六新增是工作日的 1.8 倍，建议把重要内容固定在周五晚发布。",source:"用户中心",days:3,likes:743,kind:"bars",values:[42,55,48,61,58,92,105,50,63,57,70,66,98,112]},
- {id:"c5",cat:"health",title:"健康数据：连续 12 天达标",desc:"平均步数 9,842，深睡 1 小时 42 分。睡眠是本周唯一拖后腿的指标。",source:"健康 App",days:1,likes:518,kind:"progress",rows:[["步数目标",92],["睡眠目标",68],["运动目标",84],["喝水目标",76]]},
- {id:"c6",cat:"traffic",title:"互动分布：点赞多，评论少",desc:"评论转化只有点赞的 1/9。可以在结尾加一个具体问题，引导评论。",source:"流量中心",days:4,likes:391,kind:"list",rows:[["点赞",100,38920],["收藏",42,16340],["评论",11,4280],["转发",18,7010]]},
- {id:"c7",cat:"efficiency",title:"本周目标完成度",desc:"3 个目标已完成 2 个，剩下的“整理年度复盘”预计还需要 2 天。",source:"效率看板",days:2,likes:266,kind:"progress",rows:[["发布 5 篇内容",100],["复盘 3 个项目",80],["整理年度复盘",45],["清理旧文件",100]]},
- {id:"c8",cat:"content",title:"一个值得记下来的洞察",desc:"“标题说清楚结果 + 正文给步骤”这种结构，收藏率是纯观点文的 2.3 倍。",source:"内容中心",days:5,likes:1520,kind:"insight"},
- {id:"c9",cat:"user",title:"实时动态",desc:"最近 24 小时的重要变化，点开卡片可以看到完整时间线。",source:"系统通知",days:0,likes:198,kind:"feed",rows:[["09:12 新增关注突破 1,200"],["08:40 一篇内容进入推荐池"],["昨天 22:05 收入到账 ¥1,280"],["昨天 19:30 粉丝群新增 86 人"]]},
- {id:"c10",cat:"efficiency",title:"下周待办清单",desc:"勾选后只保存在你自己的浏览器里，不会同步到别人那里。",source:"效率看板",days:0,likes:145,kind:"todo",rows:["导出本月数据报表","给 Top 3 内容写复盘","更新看板里的示例数据","备份一次 GitHub 仓库"]},
- {id:"c11",cat:"income",title:"近 90 天收入曲线",desc:"月初平稳、月中冲高、月末回落，和发布节奏高度相关。",source:"财务看板",days:6,likes:634,kind:"line",values:[120,135,128,150,142,168,175,162,188,196,184,210,205,228,219,240,232,251,246,268,259,281,274,295,288,310,302,326,318,340],labels:["月初","月中","月末"]},
- {id:"c12",cat:"health",title:"地区分布：前三城市占一半",desc:"上海、北京、深圳合计 51%，下一场线下活动可以优先考虑这三地。",source:"用户中心",days:7,likes:429,kind:"list",rows:[["上海",22,0],["北京",17,0],["深圳",12,0],["广州",9,0],["杭州",8,0]]},
-];
-/* ================== 下面是渲染逻辑，一般不用改 ================== */
-let cat="all", range=30, sortBy="hot", query="", onlyFav=false;
-const saved=JSON.parse(localStorage.getItem("my-dashboard-state")||"{}");
-const liked=new Set(saved.liked||[]), faved=new Set(saved.faved||[]);
-function save(){localStorage.setItem("my-dashboard-state",JSON.stringify({liked:[...liked],faved:[...faved]}))}
-function catName(c){return (CATS.find(x=>x[0]===c)||[])[1]||c}
-function sliceVals(c){if(!c.values) return []; return c.values.slice(-range)}
-function drawLine(cv,vals){const ctx=cv.getContext("2d"),dpr=devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;cv.width=w*dpr;cv.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);const max=Math.max(...vals)*1.1,min=0;ctx.beginPath();vals.forEach((v,i)=>{const x=i/(vals.length-1)*(w-8)+4,y=h-10-(v-min)/(max-min)*(h-28);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.strokeStyle="#ff2442";ctx.lineWidth=2.5;ctx.stroke();ctx.lineTo(w-4,h-10);ctx.lineTo(4,h-10);ctx.closePath();ctx.fillStyle="rgba(255,36,66,.08)";ctx.fill()}
-function drawBars(cv,vals){const ctx=cv.getContext("2d"),dpr=devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;cv.width=w*dpr;cv.height=h*dpr;ctx.scale(dpr,dpr);const max=Math.max(...vals);vals.forEach((v,i)=>{const bw=w/vals.length*.62,x=i*(w/vals.length)+(w/vals.length-bw)/2,bh=v/max*(h-16);ctx.fillStyle=i%2?"#ffb3be":"#ff2442";ctx.fillRect(x,h-bh-4,bw,bh)})}
-function visualHTML(c,cls){if(c.kind==="line")return `<canvas class="${cls||''}" data-chart="line" data-id="${c.id}"></canvas>`;if(c.kind==="bars")return `<canvas class="${cls||''}" data-chart="bars" data-id="${c.id}"></canvas>`;if(c.kind==="donut"){let off=0;const circ=2*Math.PI*42;const segs=c.parts.map(p=>{const len=p[1]/100*circ,s=`<circle cx="60" cy="60" r="42" fill="none" stroke="${p[2]}" stroke-width="18" stroke-dasharray="${len} ${circ-len}" stroke-dashoffset="${-off}" transform="rotate(-90 60 60)"/>`;off+=len;return s}).join("");return `<div class="donut"><svg width="120" height="120" viewBox="0 0 120 120">${segs}</svg><div class="legend">${c.parts.map(p=>`<div><i style="background:${p[2]}"></i>${p[0]} ${p[1]}%</div>`).join("")}</div></div>`}if(c.kind==="list")return c.rows.map(r=>`<div class="row"><span style="min-width:96px">${r[0]}</span><span class="bar"><i style="width:${r[1]}%"></i></span><b>${r[2]?r[2].toLocaleString():r[1]+"%"}</b></div>`).join("");if(c.kind==="progress")return c.rows.map(r=>`<div class="row"><span style="min-width:96px">${r[0]}</span><span class="bar"><i style="width:${r[1]}%"></i></span><b>${r[1]}%</b></div>`).join("");if(c.kind==="feed")return c.rows.map(r=>`<div class="row">• ${r}</div>`).join("");if(c.kind==="todo")return c.rows.map((r,i)=>`<label class="check" onclick="event.stopPropagation()"><input type="checkbox"> <span>${r}</span></label>`).join("");return `<p style="font-size:15px;line-height:1.8;color:#444">💡 ${c.desc}</p>`}
-function cardHTML(c){const tall=c.kind==="line"&&c.values.length>20?"tall":"";return `<article class="card" onclick="openModal('${c.id}')"><div class="visual">${visualHTML(c,tall)}</div><div class="body"><span class="tag">${catName(c.cat)}</span><h2>${c.title}</h2><p>${c.desc}</p></div><div class="meta"><span class="av">${c.source[0]}</span><span class="sp">${c.source} · ${c.days===0?"今天":c.days+" 天前"}</span><button class="like ${liked.has(c.id)?"on":""}" onclick="event.stopPropagation();toggleLike('${c.id}',this)">♥ <span>${c.likes+(liked.has(c.id)?1:0)}</span></button><button class="fav ${faved.has(c.id)?"on":""}" onclick="event.stopPropagation();toggleFav('${c.id}',this)">${faved.has(c.id)?"★ 已收藏":"☆ 收藏"}</button></div></article>`}
-function render(){const feed=document.getElementById("feed");let list=CARDS.filter(c=>(cat==="all"||c.cat===cat)&&(!onlyFav||faved.has(c.id))&&((c.title+c.desc+c.source).includes(query)));list.sort((a,b)=>sortBy==="hot"?(b.likes-a.likes):(a.days-b.days));feed.innerHTML=list.map(cardHTML).join("");document.getElementById("empty").style.display=list.length?"none":"block";document.getElementById("count").textContent=`共 ${list.length} 张卡片`;document.querySelectorAll("#feed canvas").forEach(cv=>{const c=CARDS.find(x=>x.id===cv.dataset.id);if(cv.dataset.chart==="line")drawLine(cv,sliceVals(c));else drawBars(cv,sliceVals(c))});document.querySelectorAll(".cat,.tabs button").forEach(b=>b.classList.toggle("active",b.dataset.cat===cat))}
-function toggleLike(id,el){liked.has(id)?liked.delete(id):liked.add(id);save();render()}
-function toggleFav(id,el){faved.has(id)?faved.delete(id):faved.add(id);save();render()}
-function openModal(id){const c=CARDS.find(x=>x.id===id);document.getElementById("mTitle").textContent=c.title;document.getElementById("mDesc").textContent=c.desc;const v=document.getElementById("mVisual");v.innerHTML=(c.kind==="line"||c.kind==="bars")?`<canvas id="mChart"></canvas>`:visualHTML(c,"");document.getElementById("mTable").innerHTML=c.values?`<table><tr><th>时间点</th><th>数值</th></tr>${sliceVals(c).map((v,i)=>`<tr><td>第 ${i+1} 天</td><td>${v.toLocaleString()}</td></tr>`).join("")}</table>`:`<p style="color:#888;font-size:14px">来源：${c.source} · ${c.days===0?"今天更新":c.days+" 天前更新"} · 点赞 ${c.likes.toLocaleString()}</p>`;document.getElementById("modal").classList.add("open");const mc=document.getElementById("mChart");if(mc){if(c.kind==="line")drawLine(mc,sliceVals(c));else drawBars(mc,sliceVals(c))}}
-function closeModal(){document.getElementById("modal").classList.remove("open")}
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
-document.getElementById("kpis").innerHTML=KPIS.map(k=>`<div class="kpi"><small>${k.label}</small><b>${k.value}</b><span class="${k.up?"up":"down"}">${k.delta}</span></div>`).join("");
-document.getElementById("today").textContent=new Date().toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"})+" · 数据更新于今天 09:00 · 示例数据";
-const catHTML=CATS.map(c=>`<button class="cat" data-cat="${c[0]}" onclick="cat='${c[0]}';render()">${c[1]}<span style="color:#aaa">${c[0]==="all"?CARDS.length:CARDS.filter(x=>x.cat===c[0]).length}</span></button>`).join("");
-document.getElementById("cats").innerHTML=catHTML;document.getElementById("tabs").innerHTML=CATS.map(c=>`<button data-cat="${c[0]}" onclick="cat='${c[0]}';render()">${c[1]}</button>`).join("");
+const DATA={
+  wechat:{
+    top:[["券商研究员（示例）",83],["投资交流群（示例）",64],["前同事（示例）",57],["大学同学群（示例）",48],["行业交流群（示例）",42],["猎头顾问（示例）",39],["家人群（示例）",35],["读书会群（示例）",31],["老同事（示例）",28],["社区群（示例）",24]],
+    entries:[
+      {date:"10-26",who:"券商研究员（示例）",title:"聊了一只消费股的估值分歧",text:"对方认为估值已经回到合理区间，我的疑问是复购率能不能撑住下一季度的增速，约好等财报后再对一次数据。",tags:["估值","消费"],status:"待跟进"},
+      {date:"10-25",who:"投资交流群（示例）",title:"群里在讨论分红与回购",text:"大家对分红率的看法不一，我记下了两个需要核对的点：自由现金流口径和回购注销的节奏。",tags:["分红","回购"],status:"已记录"},
+      {date:"10-24",who:"猎头顾问（示例）",title:"聊了一个薪酬 SSC 的岗位方向",text:"对方介绍了岗位的汇报线和团队规模，我问了薪资范围和社保公积金的缴纳方式，等对方发正式岗位说明。",tags:["招聘","薪酬"],status:"待回复"},
+      {date:"10-23",who:"前同事（示例）",title:"请教薪酬体系的搭建经验",text:"聊了宽带薪酬和绩效系数的搭配，对方提醒我先看清楚公司的职级体系再谈方案。",tags:["薪酬","绩效"],status:"已记录"},
+      {date:"10-22",who:"大学同学群（示例）",title:"群里分享了一篇行业复盘",text:"复盘里提到行业集中度在提升，我把和个股讨论相关的两段话单独存了下来。",tags:["行业","复盘"],status:"已记录"}
+    ]
+  },
+  stocks:{
+    top:[["示例个股 A · 消费",94],["示例个股 B · 医药",79],["示例个股 C · 金融",66],["示例个股 D · 科技",58],["示例个股 E · 制造",49],["示例个股 F · 消费",47],["示例个股 G · 能源",42],["示例个股 H · 医药",38],["示例个股 I · 科技",35],["示例个股 J · 金融",31]],
+    entries:[
+      {date:"10-26",who:"示例个股 A · 消费",title:"估值回到合理区间了吗",text:"讨论集中在复购率和渠道库存上，分歧点是下一季度增速能不能维持，结论是等财报再判断。",tags:["估值","复购率"],status:"待核对"},
+      {date:"10-25",who:"示例个股 B · 医药",title:"研发管线进度怎么跟踪",text:"记下了三个跟踪指标：临床进度、集采影响和研发费用率，下次沟通先对这三项。",tags:["研发","集采"],status:"已记录"},
+      {date:"10-24",who:"示例个股 C · 金融",title:"分红率和回购节奏",text:"对方提醒看自由现金流而不是只看净利润，分红的可持续性要结合资本充足率一起看。",tags:["分红","回购"],status:"已记录"},
+      {date:"10-23",who:"示例个股 D · 科技",title:"行业集中度提升意味着什么",text:"讨论认为龙头份额还在提升，但估值已经不便宜，需要区分短期情绪和长期份额变化。",tags:["行业","龙头"],status:"待核对"},
+      {date:"10-22",who:"示例个股 E · 制造",title:"成本传导能不能顺下去",text:"原材料价格回落有没有传导到毛利率，是这次讨论里最需要数据验证的一点。",tags:["成本","毛利率"],status:"待核对"}
+    ]
+  },
+  jobs:{
+    top:[["示例公司 A · 薪酬 SSC",73],["示例公司 B · 人力运营",61],["示例公司 C · 薪酬福利",54],["示例公司 D · 行政人事",47],["示例公司 E · 共享服务中心",42],["示例公司 F · 薪酬 SSC",38],["示例公司 G · 人力运营",34],["示例公司 H · 薪酬福利",29],["示例公司 I · 行政人事",26],["示例公司 J · 共享服务中心",22]],
+    entries:[
+      {date:"10-26",who:"示例公司 A · 薪酬 SSC",title:"HR 约了下一轮沟通",text:"对方确认了岗位的汇报线和团队规模，我问了薪资范围、社保公积金缴纳地和入职时间窗口。",tags:["薪酬","面试"],status:"待回复"},
+      {date:"10-25",who:"示例公司 B · 人力运营",title:"岗位说明里有三点要再确认",text:"分别是绩效考核方式、加班与调休规则、试用期薪资折算，我已经列好清单准备发过去。",tags:["岗位","绩效"],status:"待跟进"},
+      {date:"10-24",who:"示例公司 C · 薪酬福利",title:"聊了社保公积金的实操细节",text:"对方介绍了缴纳基数和补充公积金的情况，我记下了和现在这份工作的对比项。",tags:["社保","公积金"],status:"已记录"},
+      {date:"10-23",who:"示例公司 D · 行政人事",title:"面试流程和时间线",text:"流程是 HR 初面加业务复面，时间线大约两周，我把需要准备的材料清单整理好了。",tags:["面试","流程"],status:"进行中"},
+      {date:"10-22",who:"示例公司 E · 共享服务中心",title:"岗位地点和通勤距离",text:"地点在闵行，离芳邻小区不远，我把通勤时间和周边交通记下来，作为决策参考之一。",tags:["地点","通勤"],status:"已记录"}
+    ]
+  }
+};
+const SECTION_NAME={wechat:"微信沟通",stocks:"个股沟通",jobs:"招聘沟通"};
+let tab="all", query="";
+function renderTop(key){
+  const max=DATA[key].top[0][1];
+  document.getElementById("top-"+key).innerHTML=DATA[key].top.filter(r=>(r[0]+r[1]).includes(query)).map((r,i)=>`<div class="toprow"><span class="n">${i+1}</span><span class="name">${r[0]}</span><span class="bar"><i style="width:${Math.round(r[1]/max*100)}%"></i></span><b>${r[1]}</b></div>`).join("");
+}
+const expanded={wechat:false,stocks:false,jobs:false};
+function filteredEntries(key){return DATA[key].entries.filter(e=>(e.who+e.title+e.text+e.tags.join("")).includes(query))}
+function renderEntries(key){
+  const list=filteredEntries(key);
+  const shown=expanded[key]?list:list.slice(0,3);
+  document.getElementById("entries-"+key).innerHTML=shown.map((e,i)=>`<article class="entry" onclick="openDetail('${key}',${expanded[key]?i:i})"><div class="meta"><span>${e.date}</span><span>${e.who}</span><span class="status">${e.status}</span></div><h4>${e.title}</h4><p>${e.text}</p><div style="margin-top:10px">${e.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div><div style="margin-top:10px;font-size:13px;color:#b45309">查看明细 →</div></article>`).join("") || `<p style="color:#888">这个栏目里没有匹配的记录。</p>`;
+  const btn=document.getElementById("more-"+key);
+  if(list.length>3){btn.style.display="block";btn.textContent=expanded[key]?"收起 ↑":`查看其余 ${list.length-3} 条 →`}else{btn.style.display="none"}
+}
+function toggleExpand(key){expanded[key]=!expanded[key];renderEntries(key)}
+function openDetail(key,idx){
+  const e=filteredEntries(key)[idx]; if(!e) return;
+  document.getElementById("dMeta").textContent=`${SECTION_NAME[key]} · ${e.who} · ${e.date}`;
+  document.getElementById("dTitle").textContent=e.title;
+  document.getElementById("dText").textContent=e.text;
+  document.getElementById("dTags").innerHTML=e.tags.map(t=>`<span class="tag">${t}</span>`).join("");
+  document.getElementById("dStatus").innerHTML=`状态：<b>${e.status}</b>`;
+  document.getElementById("detailModal").classList.add("open");
+}
+function closeDetail(){document.getElementById("detailModal").classList.remove("open")}
+document.getElementById("detailModal").addEventListener("click",e=>{if(e.target.id==="detailModal")closeDetail()});
+function render(){
+  ["wechat","stocks","jobs"].forEach(k=>{renderTop(k);renderEntries(k);document.getElementById(k).style.display=(tab==="all"||tab===k)?"block":"none"});
+  const any=["wechat","stocks","jobs"].some(k=>(tab==="all"||tab===k)&&DATA[k].entries.some(e=>(e.who+e.title+e.text+e.tags.join("")).includes(query)));
+  document.getElementById("empty").style.display=any?"none":"block";
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+}
+function setTab(t){tab=t;render()}
 document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim();render()});
-document.getElementById("sort").addEventListener("change",e=>{sortBy=e.target.value;render()});
-document.getElementById("onlyFav").addEventListener("change",e=>{onlyFav=e.target.checked;render()});
-document.getElementById("range").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;range=+b.dataset.r;document.querySelectorAll("#range button").forEach(x=>x.classList.toggle("active",x===b));render()});
-window.addEventListener("resize",()=>render());
+function askAssistant(ev){
+  if(ev) ev.preventDefault();
+  const q=document.getElementById("qaInput").value.trim();
+  const box=document.getElementById("qaResult");
+  if(!q){box.innerHTML=`<div class="res">先输入一个关键词，比如“薪酬”“估值”“面试”。</div>`;return false}
+  const hits=[];
+  Object.keys(DATA).forEach(k=>DATA[k].entries.forEach(e=>{if((e.who+e.title+e.text+e.tags.join("")).includes(q)) hits.push({sec:SECTION_NAME[k],...e})}));
+  box.innerHTML=hits.length ? hits.map(h=>`<div class="res"><b>${h.title}</b> · ${h.sec} · ${h.who} · ${h.date}<br>${h.text}<br><span style="color:#c9c9c9">状态：${h.status} · 主题：${h.tags.join("、")}</span></div>`).join("") : `<div class="res">示例记录里没有找到“${q}”，换个词试试，比如“薪酬”“估值”“面试”“社保”。</div>`;
+  return false;
+}
+function quickAsk(w){document.getElementById("qaInput").value=w;askAssistant();document.getElementById("assistant").scrollIntoView({behavior:"smooth"})}
 render();
 </script>
 </body>
