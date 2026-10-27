@@ -6,81 +6,79 @@
 <title>数据导航 · 美食佳的知识库</title>
 <meta name="description" content="美食佳的知识库：数据导航。只放真实内容，无示例、无模拟。">
 <style>
-  :root{--bg:#ffffff;--card:#fff;--text:#1d1d1f;--muted:#6e6e73;--line:#e5e5e5;--accent:#000000;--green:#000000;--radius:16px}
-  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  :root{--bg:#FAF6EE;--card:#FFFCF5;--text:#262019;--muted:#7A7264;--line:#E3DCCB;--accent:#A63A2F;--green:#A63A2F;--radius:12px}
+  *{box-sizing:border-box} body{margin:0;background-color:var(--bg);background-image:radial-gradient(rgba(120,100,60,.13) 1px,transparent 1.2px);background-size:22px 22px;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
   a{color:inherit;text-decoration:none} button{font:inherit;cursor:pointer}
-  header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .top{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  header{position:sticky;top:0;z-index:20;background:rgba(250,246,238,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top{max-width:900px;margin:0 auto;padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
   .logo{font-size:20px;font-weight:800}.logo span{color:var(--accent)}
-  nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto} nav a{font-size:14px;padding:7px 12px;border-radius:999px} nav a:hover{background:#f0f0f0}
-  .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 60px}
-  section.block{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;margin:22px 0}
-  section.block h2{font-size:26px;margin:0 0 6px} section.block .desc{color:var(--muted);line-height:1.7;margin:0 0 20px}
-  .item{border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+  nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto} nav a{font-size:14px;padding:7px 12px;border-radius:999px} nav a:hover{background:#F3E9D8}
+  .wrap{max-width:900px;margin:0 auto;padding:20px 20px 60px}
+  section.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:22px 0}
+  section.block h2{font-size:26px;margin:0 0 6px;border-bottom:2px solid #1d1d1f;padding-bottom:10px} section.block .desc{color:var(--muted);line-height:1.7;margin:0 0 20px}
+  .item{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
   .item .meta{font-size:13px;color:var(--muted)}
   .item h3{margin:8px 0;font-size:17px;line-height:1.5}.item p{margin:8px 0;line-height:1.8;color:#444;font-size:14px}
-  .tag{display:inline-block;background:#f0f0f0;border-radius:6px;padding:2px 8px;font-size:12px;margin-right:6px}
+  .tag{display:inline-block;background:transparent;border:1px solid var(--line);border-radius:999px;color:#7A7264;padding:2px 8px;font-size:12px;margin-right:6px}
   .status{color:var(--green);font-weight:700}
-  .more-btn{width:100%;margin-top:4px;border:1px solid var(--line);background:#fafafa;border-radius:999px;padding:10px;font-size:14px}
-  .more-btn:hover{background:#f0f0f0}
+  .more-btn{width:100%;margin-top:4px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:10px;font-size:14px}
+  .more-btn:hover{background:#F3E9D8}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .grid3 a,.grid3 .card{border:1px solid var(--line);border-radius:14px;padding:16px;display:block;background:#fff}
-  .grid3 a:hover{box-shadow:0 4px 16px rgba(0,0,0,.06)}
+  .grid3 a,.grid3 .card{border:1px solid var(--line);border-radius:12px;padding:16px;display:block;background:var(--card)}
+  .grid3 a:hover{border-color:#D8CDB4}
   .grid3 h3{margin:6px 0;font-size:16px;line-height:1.5}.grid3 p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}.grid3 .src{font-size:13px;color:var(--muted)}
   .stockgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  .stock{border:1px solid var(--line);border-radius:14px;padding:16px}.stock h3{margin:0 0 8px;font-size:17px}.stock p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}.stock .price{font-size:20px;font-weight:800}.stock .up{color:#000000}.stock .down{color:#000000}
-  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px}.tabs button.active{background:var(--text);color:#fff;border-color:var(--text)}
+  .stock{border:1px solid var(--line);border-radius:12px;padding:16px}.stock h3{margin:0 0 8px;font-size:17px}.stock p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}.stock .price{font-size:20px;font-weight:800}.stock .up{color:#000000}.stock .down{color:#000000}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px}.tabs button.active{background:#F3E9D8;color:#A63A2F;border-color:#E3DCCB}
   .jobpanel{display:none}.jobpanel.active{display:block}
   .apply-btn{border:0;background:var(--accent);color:#fff;border-radius:999px;padding:9px 18px;font-size:14px;margin-right:8px}
-  .mark-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;font-size:14px}
-  .fb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.fb input{flex:1;min-width:200px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}.fb button{border:1px solid var(--line);background:#fafafa;border-radius:999px;padding:8px 14px;font-size:13px}
+  .mark-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 16px;font-size:14px}
+  .fb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.fb input{flex:1;min-width:200px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}.fb button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:13px}
   .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;place-items:center;z-index:50;padding:16px}
-  .modal.open{display:grid}.sheet{background:#fff;border-radius:20px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:24px}
+  .modal.open{display:grid}.sheet{background:var(--card);border-radius:12px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:24px}
   .sheet h3{font-size:19px;line-height:1.5;margin:10px 0}.sheet p{line-height:1.8;color:#444}
-  .close{float:right;border:0;background:#f2f2f2;border-radius:50%;width:32px;height:32px}
-  footer{color:var(--muted);font-size:13px;line-height:1.9;text-align:center;padding:10px 0 30px}
-  @media(max-width:820px){.grid3{grid-template-columns:1fr}.stockgrid{grid-template-columns:1fr}}
+  .close{float:right;border:0;background:#F3E9D8;border-radius:50%;width:32px;height:32px}
+  footer{color:var(--muted);font-size:13px;line-height:1.9;text-align:left;padding:10px 0 30px}
+  @media(max-width:820px){.grid3,.grid2{grid-template-columns:1fr}.stockgrid{grid-template-columns:1fr}}
 
-  .num{font-size:13px;letter-spacing:.08em;color:#000000;font-weight:700;margin-bottom:6px}
+  .num{font-size:13px;letter-spacing:.08em;color:#A63A2F;font-weight:700;margin-bottom:6px}
   .page-title{font-size:34px;margin:12px 0}
-  .page-intro{color:#444;line-height:1.8;max-width:760px;margin:0 0 20px}
-  nav a.active{background:#1d1d1f;color:#fff}
+  .page-intro{color:#444;line-height:1.8;max-width:760px;margin:0 0 20px;border:1px dashed #D8CDB4;background:var(--card);border-radius:12px;padding:14px 16px}
+  nav a.active{background:#F3E9D8;color:#A63A2F}
   .search{position:relative;margin-left:12px}
-  .search input{border:1px solid #e5e5e5;border-radius:999px;padding:7px 12px;font-size:14px;width:200px;background:#fff;color:#000}
-  .search-results{position:absolute;top:38px;right:0;width:320px;max-height:420px;overflow:auto;background:#fff;border:1px solid #e5e5e5;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08);display:none;z-index:60}
-  .search-hit{display:block;padding:12px 14px;border-bottom:1px solid #f0f0f0}
+  .search input{border:1px solid #E3DCCB;border-radius:999px;padding:7px 12px;font-size:14px;width:200px;background:#fff;color:#000}
+  .search-results{position:absolute;top:38px;right:0;width:320px;max-height:420px;overflow:auto;background:var(--card);border:1px solid #E3DCCB;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08);display:none;z-index:60}
+  .search-hit{display:block;padding:12px 14px;border-bottom:1px solid #F1E8D5}
   .search-hit strong{display:block;font-size:14px;line-height:1.5}
   .search-hit span{display:block;font-size:13px;color:#666;line-height:1.6;margin-top:2px}
-  .search-hit:hover{background:#fafafa}
+  .search-hit:hover{background:#F3E9D8}
   .search-empty{padding:14px;font-size:14px;color:#666}
   .stock .up::before{content:"▲ "} .stock .down::before{content:"▼ "}
-  .back-top{position:fixed;right:20px;bottom:20px;background:#000;color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;z-index:70;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+  .back-top{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;background:#FFFCF5;border:1px solid #E3DCCB;color:#A63A2F;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;z-index:70;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:0}
   .cat-links{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
-  .cat-links a{border:1px solid #e5e5e5;background:#fff;border-radius:999px;padding:7px 14px;font-size:14px}
-  .cat-links a:hover{background:#000;color:#fff}
+  .cat-links a{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:14px}
+  .cat-links a:hover{background:#F3E9D8;color:#A63A2F}
+  html{scroll-behavior:smooth} [id]{scroll-margin-top:90px}
+  .accent{color:#A63A2F} .cat h2{border-bottom:2px solid #1d1d1f;padding-bottom:8px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .grid2 a{border:1px solid var(--line);border-radius:12px;padding:16px;display:block;background:var(--card)}
+  .grid2 a:hover{border-color:#D8CDB4} .grid2 h3{margin:6px 0;font-size:16px;line-height:1.5}
+  .grid2 p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}
+  .ext{color:#A63A2F;font-weight:700} .navsec{margin:0 0 28px}
+  .navsec h2{font-size:22px;margin:0 0 4px;border-bottom:2px solid #1d1d1f;padding-bottom:10px}
+  .navsec .secnum{color:#A63A2F} .navsec .desc{color:var(--muted);line-height:1.7;margin:8px 0 14px;font-size:14px}
 </style>
 </head>
 <body>
-<header id="top"><div class="top"><div class="logo">美食佳<span>的知识库</span></div><nav><a href="index.html">首页</a><a href="wechat.html">微信畅谈</a><a href="stocks.html">个股成长</a><a href="jobs.html">招聘打野</a><a href="news.html">新闻聚合</a><a href="datanav.html" class="active">数据导航</a></nav><div class="search"><input id="global-search" placeholder="搜索全站…" autocomplete="off"><div class="search-results" id="search-results"></div></div></div></header>
+<header id="top"><div class="top"><div class="logo">美食佳<span>的知识库</span></div><nav><a href="wechat.html">微信畅谈</a><a href="stocks.html">个股成长</a><a href="jobs.html">招聘打野</a><a href="datanav.html" class="active">数据导航</a><a href="news.html">新闻聚合</a></nav><div class="search"><input id="global-search" placeholder="搜索全站…" autocomplete="off"><div class="search-results" id="search-results"></div></div></div></header>
 <div class="wrap">
-  <div class="num">05 · 数据导航</div>
-  <h1 class="page-title">数据导航</h1>
-  <p class="page-intro">参照超级鹿鼎公学习站的数据导航页。本站不抓取数据，只做分类导航；点击卡片打开参考站的数据导航页，再从那里直达对应实时数据页面。内容仅作方法研究，不构成投资建议。</p>
-<div class="block">
-    <div class="grid3">
-      <a href="https://ludinggong-study.pages.dev/data-nav" target="_blank" rel="noopener"><div class="src">01 · 精选</div><h3>ETF Monitor · 估值温度与动量轮动</h3><p>先看贵不贵，再看强不强。</p></a>
-      <a href="https://ludinggong-study.pages.dev/data-nav" target="_blank" rel="noopener"><div class="src">02 · 集思录</div><h3>可转债数据矩阵</h3><p>全市场可转债数据，集思录的王牌板块。</p></a>
-      <a href="https://ludinggong-study.pages.dev/data-nav" target="_blank" rel="noopener"><div class="src">03 · 集思录</div><h3>场内基金数据</h3><p>ETF、QDII、LOF、封基、REITs 的份额与折溢价。</p></a>
-      <a href="https://ludinggong-study.pages.dev/data-nav" target="_blank" rel="noopener"><div class="src">04 · 集思录</div><h3>打新与债券</h3><p>新股新债申购日历与交易所债券收益筛选。</p></a>
-      <a href="https://ludinggong-study.pages.dev/data-nav" target="_blank" rel="noopener"><div class="src">05 · 集思录</div><h3>工具与比价</h3><p>吃息选股、AH 比价、套利与现金管理工具。</p></a>
-      <a href="https://ludinggong-study.pages.dev/data-nav" target="_blank" rel="noopener"><div class="src">参考来源</div><h3>超级鹿鼎公学习站 · 数据导航</h3><p>参考站注：数据截至 2026-10-27 11:21，v2.1；本站为独立学习整理，与被追踪账号无关联。</p></a>
-    </div>
-  </div>
-  <footer>更新于 2026-10-27 晚 · V2.5。本站不抓取数据，只做分类导航；内容仅作方法研究，不构成投资建议。 · <a href="#top">回到最上 ↑</a></footer>
+  <p class="page-intro">本站不抓取数据，只做分类导航；点击卡片直接打开对应数据网站（ETF Monitor、集思录）。内容仅作方法研究，不构成投资建议。</p>
+<div class="navsec" id="nav-01"><h2><span class="secnum">01</span> · 精选 · ETF Monitor</h2><p class="desc">估值温度 + 动量轮动：先看贵不贵，再看强不强。</p><div class="grid2"><a href="https://www.etfmonitor.cn/graham-index" target="_blank" rel="noopener"><h3>格雷厄姆指数 <span class="ext">↗</span></h3><p>A股整体估值参考，数值越低相对越便宜，可结合股债收益差看仓位档位。</p><div><span class="tag">估值</span><span class="tag">仓位</span></div></a><a href="https://www.etfmonitor.cn/" target="_blank" rel="noopener"><h3>动量监控首页 <span class="ext">↗</span></h3><p>A股与美股 ETF、个股的动量排名与历史表现，另有估值与风格仪表盘。</p><div><span class="tag">动量</span><span class="tag">轮动</span></div></a></div></div><div class="navsec" id="nav-02"><h2><span class="secnum">02</span> · 集思录 · 可转债</h2><p class="desc">全市场可转债数据矩阵。</p><div class="grid3"><a href="https://www.jisilu.cn/web/data/cb/list" target="_blank" rel="noopener"><h3>可转债列表 <span class="ext">↗</span></h3><p>全市场转债全表：现价、转股价值、溢价率、双低等，可筛选排序。</p><div><span class="tag">实时</span><span class="tag">双低</span></div></a><a href="https://www.jisilu.cn/web/data/cb/pre" target="_blank" rel="noopener"><h3>待发转债 <span class="ext">↗</span></h3><p>转债发行进度跟踪，从预案到上市各环节，含规模与中签率。</p><div><span class="tag">打新</span><span class="tag">进度</span></div></a><a href="https://www.jisilu.cn/web/data/cb/scatter" target="_blank" rel="noopener"><h3>可转债藏宝图 <span class="ext">↗</span></h3><p>价格与溢价率散点图，辅助找低估转债，部分为会员功能。</p><div><span class="tag">会员</span><span class="tag">低估</span></div></a></div></div><div class="navsec" id="nav-03"><h2><span class="secnum">03</span> · 集思录 · 场内基金</h2><p class="desc">ETF、QDII、LOF、封基、REITs 的份额与折溢价数据。</p><div class="grid3"><a href="https://www.jisilu.cn/data/etf/" target="_blank" rel="noopener"><h3>ETF基金 <span class="ext">↗</span></h3><p>指数、黄金与场内货币 ETF：场内份额、折溢价率与成交额。</p><div><span class="tag">份额</span><span class="tag">溢价率</span></div></a><a href="https://www.jisilu.cn/data/qdii/" target="_blank" rel="noopener"><h3>T+0 QDII <span class="ext">↗</span></h3><p>跨境 QDII 实时估值与溢价率，分欧美与亚洲市场，高溢价注意追高风险。</p><div><span class="tag">跨境</span><span class="tag">溢价率</span></div></a><a href="https://www.jisilu.cn/data/lof/" target="_blank" rel="noopener"><h3>LOF基金 <span class="ext">↗</span></h3><p>股票与指数 LOF 折溢价全表，可用于套利与低折价筛选。</p><div><span class="tag">折溢价</span><span class="tag">套利</span></div></a><a href="https://www.jisilu.cn/data/cf/" target="_blank" rel="noopener"><h3>封闭基金 <span class="ext">↗</span></h3><p>封闭式基金折价率与到期日数据。</p><div><span class="tag">折价率</span></div></a><a href="https://www.jisilu.cn/data/cnreits/" target="_blank" rel="noopener"><h3>REITs <span class="ext">↗</span></h3><p>A股上市与待发 REITs 全表，附港股 REITs 入口：价格、分派率与成交。</p><div><span class="tag">REITs</span><span class="tag">分派率</span></div></a></div></div><div class="navsec" id="nav-04"><h2><span class="secnum">04</span> · 集思录 · 打新与债券</h2><p class="desc">新股新债申购日历与交易所债券收益筛选。</p><div class="grid3"><a href="https://www.jisilu.cn/data/new_stock/" target="_blank" rel="noopener"><h3>新股申购 <span class="ext">↗</span></h3><p>A股新股申购、上市与次新股数据，附北交所打新计算器。</p><div><span class="tag">打新</span><span class="tag">A股</span></div></a><a href="https://www.jisilu.cn/data/new_stock/#hkipo" target="_blank" rel="noopener"><h3>港股IPO <span class="ext">↗</span></h3><p>港股新股数据：招股进度、发行价、孖展与上市表现。</p><div><span class="tag">打新</span><span class="tag">港股</span></div></a><a href="https://www.jisilu.cn/data/bond/" target="_blank" rel="noopener"><h3>债券 <span class="ext">↗</span></h3><p>交易所债券全表：税前与税后收益率、久期、主体信用与折算率，可按信用与年限筛选。</p><div><span class="tag">收益率</span><span class="tag">信用</span></div></a><a href="https://www.jisilu.cn/data/new_bond/" target="_blank" rel="noopener"><h3>新债 <span class="ext">↗</span></h3><p>新发债券数据：发行利率、规模与上市安排。</p><div><span class="tag">新债</span></div></a></div></div><div class="navsec" id="nav-05"><h2><span class="secnum">05</span> · 集思录 · 工具与比价</h2><p class="desc">吃息选股、AH 比价、套利与现金管理工具。</p><div class="grid3"><a href="https://www.jisilu.cn/data/stock/dividend_rate/" target="_blank" rel="noopener"><h3>股息率排行榜 <span class="ext">↗</span></h3><p>A股股息率全市场排行，吃息选股的入口，可对照自选股。</p><div><span class="tag">股息率</span><span class="tag">红利</span></div></a><a href="https://www.jisilu.cn/data/ha/" target="_blank" rel="noopener"><h3>A/H比价 <span class="ext">↗</span></h3><p>AH 两地上市股比价与溢价率全表，附港币与人民币中间价。</p><div><span class="tag">AH溢价</span></div></a><a href="https://www.jisilu.cn/data/taoligu/#cna" target="_blank" rel="noopener"><h3>套利股 <span class="ext">↗</span></h3><p>要约收购、现金选择权、换股吸收合并等事件套利标的清单。</p><div><span class="tag">套利</span><span class="tag">事件</span></div></a><a href="https://www.jisilu.cn/data/repo/" target="_blank" rel="noopener"><h3>现金管理 · 逆回购 <span class="ext">↗</span></h3><p>国债逆回购收益计算器与 T+0 货基对比，闲钱管理工具。</p><div><span class="tag">逆回购</span><span class="tag">货基</span></div></a><a href="https://www.jisilu.cn/data/idx_performance/" target="_blank" rel="noopener"><h3>指数涨幅统计 <span class="ext">↗</span></h3><p>主要指数区间涨幅统计，附融资余额占流通市值比例，可作情绪参考。</p><div><span class="tag">指数</span><span class="tag">融资</span></div></a><a href="https://www.jisilu.cn/data/indicator/" target="_blank" rel="noopener"><h3>投资日历 <span class="ext">↗</span></h3><p>每日投资提示：新股与新债申购上市、转债提议下修与强赎等关键事件。</p><div><span class="tag">日历</span><span class="tag">提醒</span></div></a></div></div>
+  <footer>更新于 2026-10-27 晚 · V2.10。本站不抓取数据，只做分类导航，卡片直达第三方数据页；内容仅作方法研究，不构成投资建议。</footer>
 </div>
 
 
 <script src="search.js"></script>
-<a class="back-top" href="#top">↑ 回到最上</a>
+<button class="back-top" id="backTop" aria-label="回到顶部">↑</button><script>document.getElementById("backTop").addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){if(window.scrollY>0){window.scrollTo(0,0);}},700);});</script>
 </body>
 </html>
