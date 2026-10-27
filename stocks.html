@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个股成长 · 美食佳的知识库</title>
+<meta name="description" content="美食佳的知识库：个股成长。只放真实内容，无示例、无模拟。">
+<style>
+  :root{--bg:#fbfaf7;--card:#fff;--text:#1d1d1f;--muted:#6e6e73;--line:#e8e4dc;--accent:#b45309;--green:#2f7d4f;--radius:16px}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  a{color:inherit;text-decoration:none} button{font:inherit;cursor:pointer}
+  header{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .logo{font-size:20px;font-weight:800}.logo span{color:var(--accent)}
+  nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto} nav a{font-size:14px;padding:7px 12px;border-radius:999px} nav a:hover{background:#f0ece3}
+  .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 60px}
+  section.block{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;margin:22px 0}
+  section.block h2{font-size:26px;margin:0 0 6px} section.block .desc{color:var(--muted);line-height:1.7;margin:0 0 20px}
+  .item{border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+  .item .meta{font-size:13px;color:var(--muted)}
+  .item h3{margin:8px 0;font-size:17px;line-height:1.5}.item p{margin:8px 0;line-height:1.8;color:#444;font-size:14px}
+  .tag{display:inline-block;background:#f0ece3;border-radius:6px;padding:2px 8px;font-size:12px;margin-right:6px}
+  .status{color:var(--green);font-weight:700}
+  .more-btn{width:100%;margin-top:4px;border:1px solid var(--line);background:#faf8f2;border-radius:999px;padding:10px;font-size:14px}
+  .more-btn:hover{background:#f0ece3}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .grid3 a,.grid3 .card{border:1px solid var(--line);border-radius:14px;padding:16px;display:block;background:#fff}
+  .grid3 a:hover{box-shadow:0 4px 16px rgba(0,0,0,.06)}
+  .grid3 h3{margin:6px 0;font-size:16px;line-height:1.5}.grid3 p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}.grid3 .src{font-size:13px;color:var(--muted)}
+  .stockgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .stock{border:1px solid var(--line);border-radius:14px;padding:16px}.stock h3{margin:0 0 8px;font-size:17px}.stock p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}.stock .price{font-size:20px;font-weight:800}.stock .up{color:#c0392b}.stock .down{color:#2f7d4f}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px}.tabs button.active{background:var(--text);color:#fff;border-color:var(--text)}
+  .jobpanel{display:none}.jobpanel.active{display:block}
+  .apply-btn{border:0;background:var(--accent);color:#fff;border-radius:999px;padding:9px 18px;font-size:14px;margin-right:8px}
+  .mark-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;font-size:14px}
+  .fb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.fb input{flex:1;min-width:200px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}.fb button{border:1px solid var(--line);background:#faf8f2;border-radius:999px;padding:8px 14px;font-size:13px}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;place-items:center;z-index:50;padding:16px}
+  .modal.open{display:grid}.sheet{background:#fff;border-radius:20px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:24px}
+  .sheet h3{font-size:19px;line-height:1.5;margin:10px 0}.sheet p{line-height:1.8;color:#444}
+  .close{float:right;border:0;background:#f2f2f2;border-radius:50%;width:32px;height:32px}
+  footer{color:var(--muted);font-size:13px;line-height:1.9;text-align:center;padding:10px 0 30px}
+  @media(max-width:820px){.grid3{grid-template-columns:1fr}.stockgrid{grid-template-columns:1fr}}
+
+  .num{font-size:13px;letter-spacing:.08em;color:#b45309;font-weight:700;margin-bottom:6px}
+  .page-title{font-size:34px;margin:12px 0}
+  .page-intro{color:#444;line-height:1.8;max-width:760px;margin:0 0 20px}
+  nav a.active{background:#1d1d1f;color:#fff}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="logo">美食佳<span>的知识库</span></div><nav><a href="index.html">首页</a><a href="wechat.html">微信畅谈</a><a href="stocks.html" class="active">个股成长</a><a href="jobs.html">招聘打野</a><a href="news.html">新闻聚合</a><a href="datanav.html">数据导航</a></nav></div></header>
+<div class="wrap">
+  <div class="num">02 · 个股成长</div>
+  <h1 class="page-title">个股成长</h1>
+  <p class="page-intro">按个股呈现，数据来源于个股日报与持仓股盘前报告（2026-10-28，数据截至 2026-10-27 收盘）。只展示公开行情与技术指标，不展示资产金额；不构成投资建议。</p>
+<div class="block">
+    <div class="stockgrid">
+      <div class="stock"><h3>云铝股份 000807 · 铝</h3><p class="price"><span class="up">26.17 元 +3.44%</span></p><p>PanWatch 收盘 26.10 元；MA20 25.83 元，MA60 26.46 元；RSI 51.2；MACD -0.358 / -0.352；20 日高 27.28 元，低 24.08 元；硬止损约 24.33 元。</p><p>PE 7.79 倍，EPS 1.75 元，市值约 854.9 亿元；主力净流入 +1.41 亿元（5 日 +1.29 亿元）。</p><p><span class="tag">维持不动</span>等收盘站稳 MA60 或回踩 MA20 企稳再议。</p></div>
+      <div class="stock"><h3>山煤国际 600546 · 煤炭</h3><p class="price"><span class="up">12.14 元 +0.58%</span></p><p>PanWatch 收盘 12.09 元；MA20 13.09 元，MA60 13.14 元；RSI 36.2；MACD -0.298 / -0.134；20 日高 14.07 元，低 11.77 元；硬止损约 11.45 元。</p><p>PE 15.78 倍，EPS 0.5884 元，市值约 240.1 亿元；主力净流入 -0.09 亿元（5 日 -0.82 亿元）。</p><p><span class="tag">维持不动</span>等煤炭止跌与说明会正文落地。</p></div>
+      <div class="stock"><h3>中孚实业 600595 · 铝</h3><p class="price"><span class="up">5.80 元 +1.05%</span></p><p>PanWatch 收盘 5.78 元；MA20 5.81 元，MA60 6.17 元；RSI 46.8；MACD -0.125 / -0.134；20 日高 6.14 元，低 5.41 元；硬止损约 5.50 元。</p><p>PE 7.96 倍，EPS 0.40 元，市值约 222.0 亿元；主力净流入 -0.13 亿元（5 日 -0.69 亿元）。</p><p><span class="tag">维持不动</span>等放量突破 20 日高 6.14 元并经第二日确认。</p></div>
+      <div class="stock"><h3>潞安环能 601699 · 煤炭</h3><p class="price"><span class="up">14.35 元 +1.41%</span></p><p>PanWatch 收盘 14.29 元；MA20 15.05 元，MA60 15.75 元；RSI 37.5；MACD -0.403 / -0.313；20 日高 16.06 元，低 13.85 元；硬止损约 13.49 元。</p><p>PE 27.35 倍，EPS 0.3728 元，市值约 422.4 亿元；主力净流入 +0.04 亿元（5 日 -0.40 亿元）。</p><p><span class="tag">维持不动</span>等煤炭止跌确认。</p></div>
+      <div class="stock"><h3>平煤股份 601666 · 煤炭</h3><p class="price"><span class="up">8.01 元 +1.91%</span></p><p>PanWatch 收盘 7.97 元；MA20 8.48 元，MA60 8.91 元；RSI 33.6；MACD -0.306 / -0.248；20 日高 9.18 元，低 7.68 元；硬止损约 7.53 元。</p><p>PE 66.06 倍，EPS 0.0937 元，市值约 191.7 亿元；主力净流入 -0.04 亿元（5 日 -0.22 亿元）。</p><p><span class="tag">维持不动</span>等煤炭止跌与说明会正文落地。</p></div>
+      <div class="stock"><h3>黄金股 ETF 华夏 159562 · 黄金股</h3><p class="price"><span class="down">1.823 元 -0.11%</span></p><p>PanWatch 收盘 1.813 元；MA20 2.00 元，MA60 2.18 元；RSI 32.1；MACD -0.095 / -0.080；20 日高 2.217 元，低 1.776 元；硬止损约 1.74 元。</p><p>ETF 不用个股 PE；主力净流入 -0.02 亿元（5 日 -0.47 亿元）；20 日简单平均 -18.08%（组别口径）。</p><p><span class="tag">只看不买</span>不补仓、不抄底。</p></div>
+      <div class="stock"><h3>恒生新药 520500 · 港股创新药</h3><p class="price"><span class="down">1.204 元 -4.82%</span></p><p>PanWatch 收盘 1.200 元；MA20 1.333 元，MA60 1.381 元；RSI 33.5；MACD -0.038 / -0.028；20 日高 1.457 元，低 1.199 元；硬止损约 1.15 元。</p><p>ETF 不用个股 PE；主力净流入 -1.27 亿元（5 日 -1.86 亿元）；20 日简单平均 -17.13%（组别口径）。</p><p><span class="tag">只看不买</span>收复 MA20 才谈企稳，跌破 20 日低则进一步证伪。</p></div>
+    </div>
+    <p style="color:#666;line-height:1.8;font-size:14px">组别趋势（简单平均，非按仓位加权）：煤炭 10-27 +1.30%，20 日 -10.39%；铝 10-27 +2.25%，20 日 -3.40%。总裁判：中性偏谨慎，一日反弹不改 20 日趋势，基调是观察、不追、不抄。</p>
+  </div>
+  <footer>更新于 2026-10-27 晚 · V2.2。个股内容不构成投资建议；不展示资产金额。</footer>
+</div>
+
+
+</body>
+</html>
