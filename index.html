@@ -77,19 +77,19 @@
   <div class="hero">
     <div class="sub">WeChat · 个股 · 招聘</div>
     <h1>美食佳的知识库</h1>
-    <p>微信、个股、招聘三类沟通内容，全部按主题、对象、公司整理成一张知识库，<b>每个主题、每只个股、每家公司都能一键追到原始沟通记录</b>。</p>
+    <p>招聘栏用已核实的公开岗位替换，个股栏用此前讨论过的话题替换，微信栏暂无真实记录、仍为示例，<b>整站不含真实私人沟通内容</b>。</p>
     <div class="stats">
-      <div><b>680</b>条微信沟通</div>
-      <div><b>620</b>条个股讨论</div>
-      <div><b>340</b>条招聘沟通</div>
-      <div><b>58</b>个沟通主题</div>
+      <div><b>6</b>个已核实岗位</div>
+      <div><b>7</b>只讨论过的个股</div>
+      <div><b>0</b>条真实微信记录</div>
+      <div><b>3</b>个栏目</div>
     </div>
   </div>
 
   <div class="index">
-    <a href="#wechat"><b>📬 微信沟通总览 →</b><p>按联系人、群聊和主题整理微信里的沟通记录。</p><span class="go">进入微信栏目 →</span></a>
-    <a href="#stocks"><b>💹 个股沟通总览 →</b><p>按个股、行业和讨论主题整理个股相关的沟通记录。</p><span class="go">进入个股栏目 →</span></a>
-    <a href="#jobs"><b>💼 招聘沟通总览 →</b><p>按公司、岗位和招聘流程整理招聘相关的沟通记录。</p><span class="go">进入招聘栏目 →</span></a>
+    <a href="#wechat"><b>📬 微信沟通总览 →</b><p>按联系人、群聊和主题整理微信里的沟通记录（暂无真实记录，仍为示例）。</p><span class="go">进入微信栏目 →</span></a>
+    <a href="#stocks"><b>💹 个股沟通总览 →</b><p>按个股整理此前讨论过的话题，快照非实时、不是持仓。</p><span class="go">进入个股栏目 →</span></a>
+    <a href="#jobs"><b>💼 招聘沟通总览 →</b><p>按公司、岗位整理已核实的公开岗位，全部未投递。</p><span class="go">进入招聘栏目 →</span></a>
     <a href="#graph"><b>🕸️ 沟通图谱 →</b><p>联系人、个股、公司和主题之间的关联，一张图看清全貌。</p><span class="go">查看沟通图谱 →</span></a>
   </div>
 
@@ -115,36 +115,36 @@
     <button data-tab="stocks" onclick="setTab('stocks')">个股沟通</button>
     <button data-tab="jobs" onclick="setTab('jobs')">招聘沟通</button>
   </div>
-  <div class="notice">⚠️ 本页全部是<b>示例数据</b>，不是真实微信记录、真实持仓和真实招聘进展，个股名称已脱敏，不构成投资建议。要换成你自己的内容，把页面底部 DATA 里三组数组替换即可。</div>
+  <div class="notice">⚠️ 来源说明：招聘栏是 2026-10-27 只读搜索核实的公开岗位（智联 4 个日期已核实，51job 2 个日期未核实），<b>全部未投递、不是沟通记录</b>；此前已投递过的岗位已按排除规则剔除，不再列出；个股栏是此前讨论过的话题快照（2026-10-27 盘中数据，<b>非实时行情、不是持仓</b>，不构成投资建议）；微信栏暂无真实记录，仍为示例。</div>
 
   <section class="block" id="wechat" data-section="wechat">
     <h2>📬 微信沟通</h2>
-    <p class="desc">微信里的沟通按联系人和主题整理，重点看谁聊得多、聊什么、下一步是什么。</p>
+    <p class="desc">微信栏暂无真实记录，以下仍为示例，重点看谁聊得多、聊什么、下一步是什么。</p>
     <div class="cols"><div class="toplist"><h3>TOP 10 · 提及最多</h3><div id="top-wechat"></div></div><div><h3 style="font-size:14px;color:#6e6e73">近期沟通记录 · 默认展示最近 3 条</h3><div class="entries" id="entries-wechat"></div><button class="more-btn" id="more-wechat" onclick="toggleExpand('wechat')"></button></div></div>
   </section>
 
   <section class="block" id="stocks" data-section="stocks">
     <h2>💹 个股沟通</h2>
-    <p class="desc">个股相关的讨论按个股和主题整理，重点看估值逻辑、分歧点和需要再核对的信息。</p>
-    <div class="cols"><div class="toplist"><h3>TOP 10 · 提及最多</h3><div id="top-stocks"></div></div><div><h3 style="font-size:14px;color:#6e6e73">近期沟通记录 · 默认展示最近 3 条</h3><div class="entries" id="entries-stocks"></div><button class="more-btn" id="more-stocks" onclick="toggleExpand('stocks')"></button></div></div>
+    <p class="desc">个股栏不是持仓，是此前讨论过的个股与话题，快照为 2026-10-27 盘中数据、非实时，重点看估值逻辑、分歧点和需要再核对的信息。</p>
+    <div class="cols"><div class="toplist"><h3>讨论过的个股</h3><div id="top-stocks"></div></div><div><h3 style="font-size:14px;color:#6e6e73">讨论话题 · 默认展示最近 3 条</h3><div class="entries" id="entries-stocks"></div><button class="more-btn" id="more-stocks" onclick="toggleExpand('stocks')"></button></div></div>
   </section>
 
   <section class="block" id="jobs" data-section="jobs">
     <h2>💼 招聘沟通</h2>
-    <p class="desc">招聘相关的沟通按公司和流程整理，重点看岗位、薪资范围、流程节点和待回复事项。</p>
-    <div class="cols"><div class="toplist"><h3>TOP 10 · 提及最多</h3><div id="top-jobs"></div></div><div><h3 style="font-size:14px;color:#6e6e73">近期沟通记录 · 默认展示最近 3 条</h3><div class="entries" id="entries-jobs"></div><button class="more-btn" id="more-jobs" onclick="toggleExpand('jobs')"></button></div></div>
+    <p class="desc">招聘栏不是沟通记录，是已核实的公开岗位，重点看岗位、薪资范围、匹配点和差距，全部未投递、待你选定。</p>
+    <div class="cols"><div class="toplist"><h3>已核实岗位</h3><div id="top-jobs"></div></div><div><h3 style="font-size:14px;color:#6e6e73">已核实岗位 · 默认展示最近 3 条</h3><div class="entries" id="entries-jobs"></div><button class="more-btn" id="more-jobs" onclick="toggleExpand('jobs')"></button></div></div>
   </section>
 
   <section class="block" id="graph">
     <h2>🕸️ 沟通图谱</h2>
-    <p class="desc">三类沟通不是孤立的：同一个人可能既聊个股又介绍招聘机会，同一主题可能横跨微信和招聘沟通。</p>
+    <p class="desc">下面是本页实际条目数，不是真实图谱的节点与链接统计。</p>
     <div class="graph">
-      <div><b>42</b><span>微信联系人节点</span></div>
-      <div><b>36</b><span>个股主题节点</span></div>
-      <div><b>24</b><span>招聘公司节点</span></div>
-      <div><b>58</b><span>沟通主题节点</span></div>
+      <div><b>6</b><span>已核实岗位</span></div>
+      <div><b>7</b><span>讨论过的个股</span></div>
+      <div><b>5</b><span>微信示例记录</span></div>
+      <div><b>3</b><span>栏目</span></div>
     </div>
-    <p style="line-height:1.8;color:#444">示例关联：微信沟通里的“薪酬体系”主题，同时出现在招聘沟通的岗位讨论里；个股沟通里的“分红与回购”主题，同时出现在微信群聊的讨论里。把 DATA 换成真实记录后，这些关联会按真实的联系人、个股和公司重新生成。</p>
+    <p style="line-height:1.8;color:#444">主题重叠示例：“薪酬”同时出现在招聘岗位和微信示例记录里，“分红与回购”同时出现在个股话题和微信示例记录里。这些只是页面上的主题重叠，不是已验证的真实关联图谱。</p>
   </section>
 
   <section class="block">
@@ -159,7 +159,7 @@
 
   <footer>
     <h3 style="color:#1d1d1f">关于本站</h3>
-    <p style="max-width:760px;margin:0 auto">美食佳把微信、个股、招聘三类沟通整理成一张互相连接的知识库。每个主题、每只个股、每家公司都能一键追到沟通记录，而不是散落在聊天记录里翻不到。<br>版式参考了 learnbuffett.com 的知识库结构：标题区、索引卡、TOP 榜、问答区和图谱区；本站的品牌、文案和数据均为原创示例，没有复制对方的内容。<br>V 1.1 · 本版改版说明：每个栏目下近期沟通记录默认只展示最近 3 条，其余点击“查看其余条数”展开，点击单条记录可查看明细。</p>
+    <p style="max-width:760px;margin:0 auto">美食佳把微信、个股、招聘三类沟通整理成一张互相连接的知识库。每个主题、每只个股、每家公司都能一键追到沟通记录，而不是散落在聊天记录里翻不到。<br>版式参考了 learnbuffett.com 的知识库结构：标题区、索引卡、TOP 榜、问答区和图谱区；本站的品牌、文案和数据均为原创示例，没有复制对方的内容。<br>V 1.2 · 本版改版说明：招聘栏替换为已核实公开岗位（未投递，已投递过的岗位已剔除），个股栏替换为此前讨论话题（非实时、非持仓），微信栏仍为示例；每栏目默认仍只展示最近 3 条，其余展开，点击单条可看明细。</p>
   </footer>
 </div>
 
@@ -184,23 +184,24 @@ const DATA={
     ]
   },
   stocks:{
-    top:[["示例个股 A · 消费",94],["示例个股 B · 医药",79],["示例个股 C · 金融",66],["示例个股 D · 科技",58],["示例个股 E · 制造",49],["示例个股 F · 消费",47],["示例个股 G · 能源",42],["示例个股 H · 医药",38],["示例个股 I · 科技",35],["示例个股 J · 金融",31]],
+    top:[["云铝股份 000807","10-27 盘中 +3.08%"],["中孚实业 600595","10-27 盘中 +1.57%"],["平煤股份 601666","10-27 盘中 +1.78%"],["潞安环能 601699","10-27 盘中 +1.27%"],["山煤国际 600546","10-27 盘中 +0.17%"],["黄金股 ETF 华夏 159562","10-27 盘中 +0.38%"],["恒生新药 520500","10-27 盘中 -3.87%"]],
     entries:[
-      {date:"10-26",who:"示例个股 A · 消费",title:"估值回到合理区间了吗",text:"讨论集中在复购率和渠道库存上，分歧点是下一季度增速能不能维持，结论是等财报再判断。",tags:["估值","复购率"],status:"待核对"},
-      {date:"10-25",who:"示例个股 B · 医药",title:"研发管线进度怎么跟踪",text:"记下了三个跟踪指标：临床进度、集采影响和研发费用率，下次沟通先对这三项。",tags:["研发","集采"],status:"已记录"},
-      {date:"10-24",who:"示例个股 C · 金融",title:"分红率和回购节奏",text:"对方提醒看自由现金流而不是只看净利润，分红的可持续性要结合资本充足率一起看。",tags:["分红","回购"],status:"已记录"},
-      {date:"10-23",who:"示例个股 D · 科技",title:"行业集中度提升意味着什么",text:"讨论认为龙头份额还在提升，但估值已经不便宜，需要区分短期情绪和长期份额变化。",tags:["行业","龙头"],status:"待核对"},
-      {date:"10-22",who:"示例个股 E · 制造",title:"成本传导能不能顺下去",text:"原材料价格回落有没有传导到毛利率，是这次讨论里最需要数据验证的一点。",tags:["成本","毛利率"],status:"待核对"}
+      {date:"10-27",who:"云铝股份 000807",title:"当日盘中快照：26.08 元，+3.08%",text:"快照口径：上一收盘 25.30 元，开盘 25.34 元，最高 26.10 元；估值口径：市盈率约 7.79 倍，市值约 854.9 亿元，52 周区间 20.45-38.23 元。以上是 2026-10-27 盘中讨论时的数据，非实时行情，不构成投资建议。",tags:["铝","估值"],status:"讨论话题 · 非持仓"},
+      {date:"10-27",who:"煤炭股话题",title:"山煤国际、潞安环能、平煤股份的盘中快照",text:"当日讨论时快照：山煤国际 12.09 元（+0.17%）、潞安环能 14.33 元（+1.27%）、平煤股份 8.00 元（+1.78%）。仅为此前讨论过的个股，非实时行情，不是持仓确认。",tags:["煤炭","快照"],status:"讨论话题 · 非持仓"},
+      {date:"10-27",who:"中孚实业 600595",title:"铝相关个股的盘中快照",text:"当日讨论时快照：5.83 元（+1.57%）。与云铝股份同属铝相关讨论话题，非实时行情，不构成投资建议。",tags:["铝","快照"],status:"讨论话题 · 非持仓"},
+      {date:"10-27",who:"ETF 与医药话题",title:"黄金股 ETF 华夏与恒生新药的盘中快照",text:"当日讨论时快照：黄金股 ETF 华夏 1.832 元（+0.38%）、恒生新药 1.216 元（-3.87%）。仅为此前讨论过的话题，非实时行情，不是持仓确认。",tags:["ETF","医药"],status:"讨论话题 · 非持仓"},
+      {date:"10-27",who:"铝行业话题",title:"电解铝产能与库存的研究讨论",text:"研究讨论要点：电解铝产能天花板约 4500 万吨/年，国内社会库存约 55 万吨级延续去库，海外可交割库存不足 18 万吨；机构对铝价的预测口径不一，仅作研究参考，不构成投资建议。",tags:["铝","产能","库存"],status:"研究话题"}
     ]
   },
   jobs:{
-    top:[["示例公司 A · 薪酬 SSC",73],["示例公司 B · 人力运营",61],["示例公司 C · 薪酬福利",54],["示例公司 D · 行政人事",47],["示例公司 E · 共享服务中心",42],["示例公司 F · 薪酬 SSC",38],["示例公司 G · 人力运营",34],["示例公司 H · 薪酬福利",29],["示例公司 I · 行政人事",26],["示例公司 J · 共享服务中心",22]],
+    top:[["上海东浩人力资源 · 薪酬绩效主管","1.1-2 万元"],["外企德科 · 项目结算专员","8000-10000 元·14薪"],["保利和润 · 薪酬与员工关系岗","1-1.2 万元·14薪"],["易薪路 · 薪酬专员","1.2-1.5 万元"],["上海美达建筑 · 行政人事专员","8000-10000 元"],["上海旭载科技 · 区域人事经理","1.7-2.3 万元·14薪"]],
     entries:[
-      {date:"10-26",who:"示例公司 A · 薪酬 SSC",title:"HR 约了下一轮沟通",text:"对方确认了岗位的汇报线和团队规模，我问了薪资范围、社保公积金缴纳地和入职时间窗口。",tags:["薪酬","面试"],status:"待回复"},
-      {date:"10-25",who:"示例公司 B · 人力运营",title:"岗位说明里有三点要再确认",text:"分别是绩效考核方式、加班与调休规则、试用期薪资折算，我已经列好清单准备发过去。",tags:["岗位","绩效"],status:"待跟进"},
-      {date:"10-24",who:"示例公司 C · 薪酬福利",title:"聊了社保公积金的实操细节",text:"对方介绍了缴纳基数和补充公积金的情况，我记下了和现在这份工作的对比项。",tags:["社保","公积金"],status:"已记录"},
-      {date:"10-23",who:"示例公司 D · 行政人事",title:"面试流程和时间线",text:"流程是 HR 初面加业务复面，时间线大约两周，我把需要准备的材料清单整理好了。",tags:["面试","流程"],status:"进行中"},
-      {date:"10-22",who:"示例公司 E · 共享服务中心",title:"岗位地点和通勤距离",text:"地点在闵行，离芳邻小区不远，我把通勤时间和周边交通记下来，作为决策参考之一。",tags:["地点","通勤"],status:"已记录"}
+      {date:"10-26",who:"上海东浩人力资源有限公司",title:"薪酬绩效主管 · 黄浦区绿地外滩中心",text:"薪资 1.1-2 万元，要求本科、3-5 年，HR 管理证书优先；匹配最直接：全周期薪酬核算发薪、社保公积金、绩效；差距：本科、证书优先、主管级，薪资下限已高于 1 万目标。状态：未投递，待你选定。",tags:["薪酬","绩效","社保"],status:"未投递 · 待选定"},
+      {date:"10-23",who:"外企德科",title:"项目结算专员 · 黄浦区外企德科大厦",text:"薪资 8000-10000 元·14薪（月均 9333-11667 元），要求本科、1-3 年；匹配 SSC/员工服务、入转调离、考勤、HR 系统优先；差距：大专对本科、14 年超出年限段，职责未明确写算薪/社保公积金/个税。状态：未投递，待你选定。",tags:["SSC","考勤","HR 系统"],status:"未投递 · 待选定"},
+      {date:"10-21",who:"上海旭载科技有限公司",title:"区域人事经理 · 徐汇区越界锦和尚城",text:"薪资 1.7-2.3 万元·14薪（月均 19833-26833 元），要求大专及以上、5 年以上且至少 1 年同级管理经验；匹配：学历对得上、含薪酬福利/绩效/员工关系/HR 系统基础；差距：薪资远超目标、经理级非薪酬执行岗，未明确算薪/考勤/社保公积金/个税执行。状态：未投递，待你选定。",tags:["薪酬","绩效","管理"],status:"未投递 · 待选定"},
+      {date:"10-16",who:"上海美达建筑工程有限公司",title:"行政人事专员 · 黄浦区瞿溪路",text:"薪资 8000-10000 元，要求本科、5-10 年；匹配：薪资、社保、公积金核算办理申报及行政、合同、员工关系；差距：本科、14 年超年限，未明确考勤/个税/HR 系统。状态：未投递，待你选定。",tags:["社保","公积金","行政"],status:"未投递 · 待选定"},
+      {date:"日期未核实",who:"保利和润房地产投资顾问有限公司",title:"薪酬与员工关系岗 · 徐汇区保利西岸中心",text:"薪资 1-1.2 万元·14薪（月均 11667-14000 元），要求本科、3 年以上；算薪、考勤、E-HR、员工关系、社保公积金、人力成本都很对，差距为本科、未明确个税。来源：51job 公开页，发布日期未核实，投前须先确认仍在招。状态：未投递，待你选定。",tags:["薪酬","考勤","E-HR"],status:"未投递 · 日期未核实"},
+      {date:"日期未核实",who:"易薪路网络科技（上海）有限公司",title:"薪酬专员 · 徐汇区光启文化广场",text:"薪资 1.2-1.5 万元，要求大专；算薪、考勤、社保公积金、个税、EHR 均有，学历对得上；差距为薪资下限 12000 元偏高、工厂/新能源厂房算薪环境、社保公积金偏员工问答而非经办。来源：51job 公开页，发布日期未核实，投前须先确认仍在招。状态：未投递，待你选定。",tags:["薪酬","社保","个税"],status:"未投递 · 日期未核实"}
     ]
   }
 };
@@ -208,7 +209,7 @@ const SECTION_NAME={wechat:"微信沟通",stocks:"个股沟通",jobs:"招聘沟�
 let tab="all", query="";
 function renderTop(key){
   const max=DATA[key].top[0][1];
-  document.getElementById("top-"+key).innerHTML=DATA[key].top.filter(r=>(r[0]+r[1]).includes(query)).map((r,i)=>`<div class="toprow"><span class="n">${i+1}</span><span class="name">${r[0]}</span><span class="bar"><i style="width:${Math.round(r[1]/max*100)}%"></i></span><b>${r[1]}</b></div>`).join("");
+  document.getElementById("top-"+key).innerHTML=DATA[key].top.filter(r=>(r[0]+r[1]).includes(query)).map((r,i)=>{const w=typeof r[1]==="number"?Math.round(r[1]/max*100):Math.max(20,100-i*10);return `<div class="toprow"><span class="n">${i+1}</span><span class="name">${r[0]}</span><span class="bar"><i style="width:${w}%"></i></span><b style="width:auto;white-space:nowrap;font-size:13px;color:#666">${r[1]}</b></div>`}).join("");
 }
 const expanded={wechat:false,stocks:false,jobs:false};
 function filteredEntries(key){return DATA[key].entries.filter(e=>(e.who+e.title+e.text+e.tags.join("")).includes(query))}
