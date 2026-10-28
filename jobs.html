@@ -129,13 +129,15 @@
 <script>try{var _t=localStorage.getItem("theme");if(_t==="dark"){document.documentElement.setAttribute("data-theme","dark")}}catch(e){}</script>
 </head>
 <body>
-<header id="top"><div class="top"><div class="logo">美食佳<span>的知识库</span></div><nav><a href="wechat.html">微信畅谈</a><a href="stocks.html">个股成长</a><a href="jobs.html" class="active">招聘打野</a><a href="datanav.html">数据导航</a><a href="https://newsnow-bex.pages.dev/c/focus" target="_blank" rel="noopener">新闻聚合 ↗</a></nav><button class="theme-toggle" id="theme-toggle" aria-label="切换夜间模式">🌙</button><div class="search"><input id="global-search" placeholder="搜索全站…" autocomplete="off"><div class="search-results" id="search-results"></div></div></div></header>
+<header id="top"><div class="top"><div class="logo">美食佳<span>的知识库</span></div><nav><a href="wechat.html">微信畅谈</a><a href="stocks.html">个股成长</a><a href="stocks-daily.html">个股日报</a><a href="jobs.html" class="active">招聘打野</a><a href="datanav.html">数据导航</a><a href="https://newsnow-bex.pages.dev/c/focus" target="_blank" rel="noopener">新闻聚合 ↗</a></nav><button class="theme-toggle" id="theme-toggle" aria-label="切换夜间模式">🌙</button><div class="search"><input id="global-search" placeholder="搜索全站…" autocomplete="off"><div class="search-results" id="search-results"></div></div></div></header>
 <script>(function(){var b=document.getElementById("theme-toggle");if(!b)return;function paint(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.textContent=d?"☀️":"🌙";b.setAttribute("aria-label",d?"切换到浅色":"切换到夜间")}b.addEventListener("click",function(){var dark=document.documentElement.getAttribute("data-theme")==="dark";try{localStorage.setItem("theme",dark?"light":"dark")}catch(e){}if(dark){document.documentElement.removeAttribute("data-theme")}else{document.documentElement.setAttribute("data-theme","dark")}paint()});paint()})();</script>
 <div class="wrap">
   <p class="page-intro">按发布日期 Tab 切换，按日期呈现推荐职位。每张卡片标明来源平台并附详情链接，点去投递直接打开该岗位的可投递页面；投递状态、投递时间和反馈状态都在卡片里；已投递过的岗位已剔除，不再推荐。投递标记点错或实际未投递时，点“取消投递标记”可回退（只取消本地标记，不撤销平台投递）。</p>
 <div class="block">
     <div class="tabs" id="jobtabs">
-      <button data-tab="d1026" class="active" onclick="setJobTab('d1026')">10-26</button>
+      <button data-tab="d1028" class="active" onclick="setJobTab('d1028')">10-28</button>
+      <button data-tab="d1027" onclick="setJobTab('d1027')">10-27</button>
+      <button data-tab="d1026" onclick="setJobTab('d1026')">10-26</button>
       <button data-tab="d1023" onclick="setJobTab('d1023')">10-23</button>
       <button data-tab="d1021" onclick="setJobTab('d1021')">10-21</button>
       <button data-tab="d1016" onclick="setJobTab('d1016')">10-16</button>
@@ -143,7 +145,49 @@
       <button data-tab="applied" id="applied-tab-btn" onclick="setJobTab('applied')">已投递</button>
     </div>
 
-    <div class="jobpanel active" id="panel-d1026">
+        <div class="jobpanel active" id="panel-d1028">
+      <div class="item" id="job-zhongzhi" data-job="zhongzhi">
+        <div class="meta">10-28 发布 · 来源：智联招聘 · 投递状态：<span class="apply-status" id="status-zhongzhi">未投递</span> · 反馈：<span id="fb-zhongzhi">暂无反馈</span></div>
+        <h3>上海中智项目外包咨询服务有限公司 · 人事专员（1年）</h3><div class="md"><ul><li><strong>地点：</strong>上海·静安区·南京西路锦沧文华广场1F</li><li><strong>薪资：</strong>1-1.5万</li><li><strong>距离：</strong>最短 15.1 公里（略超 15 公里线）</li><li><strong>要求：</strong>要求见详情页</li></ul></div>
+        <p>来源：智联招聘 · <a href="https://www.zhaopin.com/jobdetail/CC209328710J40852938716.htm" target="_blank" rel="noopener" style="color:#A63A2F;font-weight:700">打开详情页 ↗</a></p>
+        <a class="apply-btn" href="https://www.zhaopin.com/jobdetail/CC209328710J40852938716.htm" target="_blank" rel="noopener">去投递 →</a>
+        <button class="mark-btn" onclick="markAppliedDirect('zhongzhi')">我已在平台投递</button>
+        <button class="mark-btn" id="cancel-zhongzhi" style="display:none" onclick="cancelApplied('zhongzhi')">取消投递标记</button>
+        <div class="fb"><input id="fbinput-zhongzhi" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('zhongzhi')">保存反馈</button><button onclick="clearFeedback('zhongzhi')">清除反馈</button></div>
+      </div>
+    </div>
+
+    <div class="jobpanel" id="panel-d1027">
+      <div class="item" id="job-shenhan" data-job="shenhan">
+        <div class="meta">10-27 发布 · 来源：智联招聘 · 投递状态：<span class="apply-status" id="status-shenhan">未投递</span> · 反馈：<span id="fb-shenhan">暂无反馈</span></div>
+        <h3>上海神瀚人力资源有限公司 · 行政综合管理岗/双休</h3><div class="md"><ul><li><strong>地点：</strong>上海·徐汇区·徐家汇汇嘉大厦211</li><li><strong>薪资：</strong>8000-10000元</li><li><strong>要求：</strong>要求见详情页</li></ul></div>
+        <p>来源：智联招聘 · <a href="https://www.zhaopin.com/jobdetail/CCL1500595290J40930391403.htm" target="_blank" rel="noopener" style="color:#A63A2F;font-weight:700">打开详情页 ↗</a></p>
+        <a class="apply-btn" href="https://www.zhaopin.com/jobdetail/CCL1500595290J40930391403.htm" target="_blank" rel="noopener">去投递 →</a>
+        <button class="mark-btn" onclick="markAppliedDirect('shenhan')">我已在平台投递</button>
+        <button class="mark-btn" id="cancel-shenhan" style="display:none" onclick="cancelApplied('shenhan')">取消投递标记</button>
+        <div class="fb"><input id="fbinput-shenhan" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('shenhan')">保存反馈</button><button onclick="clearFeedback('shenhan')">清除反馈</button></div>
+      </div>
+      <div class="item" id="job-baide" data-job="baide">
+        <div class="meta">10-27 发布 · 来源：智联招聘 · 投递状态：<span class="apply-status" id="status-baide">未投递</span> · 反馈：<span id="fb-baide">暂无反馈</span></div>
+        <h3>安徽百得思维信息科技有限公司 · 行政综合（科大讯飞）</h3><div class="md"><ul><li><strong>地点：</strong>上海·长宁区·中山国际广场-A楼4层科大讯飞</li><li><strong>薪资：</strong>9000-12000元</li><li><strong>距离：</strong>推荐 14.9 公里，贴近上限</li><li><strong>要求：</strong>要求见详情页</li></ul></div>
+        <p>来源：智联招聘 · <a href="https://www.zhaopin.com/jobdetail/CC571829420J40907236705.htm" target="_blank" rel="noopener" style="color:#A63A2F;font-weight:700">打开详情页 ↗</a></p>
+        <a class="apply-btn" href="https://www.zhaopin.com/jobdetail/CC571829420J40907236705.htm" target="_blank" rel="noopener">去投递 →</a>
+        <button class="mark-btn" onclick="markAppliedDirect('baide')">我已在平台投递</button>
+        <button class="mark-btn" id="cancel-baide" style="display:none" onclick="cancelApplied('baide')">取消投递标记</button>
+        <div class="fb"><input id="fbinput-baide" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('baide')">保存反馈</button><button onclick="clearFeedback('baide')">清除反馈</button></div>
+      </div>
+      <div class="item" id="job-xuehua" data-job="xuehua">
+        <div class="meta">10-27 发布 · 来源：智联招聘 · 投递状态：<span class="apply-status" id="status-xuehua">未投递</span> · 反馈：<span id="fb-xuehua">暂无反馈</span></div>
+        <h3>华润雪花 · HRBP</h3><div class="md"><ul><li><strong>地点：</strong>上海·黄浦区·打浦桥</li><li><strong>薪资：</strong>1.1-1.3万·13薪</li><li><strong>说明：</strong>岗位类型较宽（HRBP）</li><li><strong>要求：</strong>要求见详情页</li></ul></div>
+        <p>来源：智联招聘 · <a href="https://www.zhaopin.com/jobdetail/CC133030060J40808356906.htm" target="_blank" rel="noopener" style="color:#A63A2F;font-weight:700">打开详情页 ↗</a></p>
+        <a class="apply-btn" href="https://www.zhaopin.com/jobdetail/CC133030060J40808356906.htm" target="_blank" rel="noopener">去投递 →</a>
+        <button class="mark-btn" onclick="markAppliedDirect('xuehua')">我已在平台投递</button>
+        <button class="mark-btn" id="cancel-xuehua" style="display:none" onclick="cancelApplied('xuehua')">取消投递标记</button>
+        <div class="fb"><input id="fbinput-xuehua" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('xuehua')">保存反馈</button><button onclick="clearFeedback('xuehua')">清除反馈</button></div>
+      </div>
+    </div>
+
+<div class="jobpanel" id="panel-d1026">
       <div class="item" id="job-donghao" data-job="donghao">
         <div class="meta">10-26 发布 · 来源：智联招聘 · 投递状态：<span class="apply-status" id="status-donghao">未投递</span> · 反馈：<span id="fb-donghao">暂无反馈</span></div>
         <h3>上海东浩人力资源有限公司 · 薪酬绩效主管</h3><div class="md"><ul><li><strong>地点：</strong>上海黄浦区绿地外滩中心</li><li><strong>薪资：</strong>1.1-2 万元</li><li><strong>匹配：</strong>最直接：全周期薪酬核算发薪、社保公积金、绩效</li><li><strong>差距：</strong>要求本科、3-5 年，HR 管理证书优先，主管级，薪资下限已高于 1 万元目标</li></ul></div>
@@ -152,6 +196,15 @@
         <button class="mark-btn" onclick="markAppliedDirect('donghao')">我已在平台投递</button>
         <button class="mark-btn" id="cancel-donghao" style="display:none" onclick="cancelApplied('donghao')">取消投递标记</button>
         <div class="fb"><input id="fbinput-donghao" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('donghao')">保存反馈</button><button onclick="clearFeedback('donghao')">清除反馈</button></div>
+      </div>
+      <div class="item" id="job-tanyin" data-job="tanyin">
+        <div class="meta">10-26 发布 · 来源：智联招聘 · 投递状态：<span class="apply-status" id="status-tanyin">未投递</span> · 反馈：<span id="fb-tanyin">暂无反馈</span></div>
+        <h3>上海探洇医学检验实验室有限公司 · 人事行政专员</h3><div class="md"><ul><li><strong>地点：</strong>上海·闵行区·浦江</li><li><strong>薪资：</strong>7000-10000元</li><li><strong>说明：</strong>起薪 7 千，低于 8 千</li><li><strong>要求：</strong>要求见详情页</li></ul></div>
+        <p>来源：智联招聘 · <a href="https://www.zhaopin.com/jobdetail/CCL1313255140J40886096207.htm" target="_blank" rel="noopener" style="color:#A63A2F;font-weight:700">打开详情页 ↗</a></p>
+        <a class="apply-btn" href="https://www.zhaopin.com/jobdetail/CCL1313255140J40886096207.htm" target="_blank" rel="noopener">去投递 →</a>
+        <button class="mark-btn" onclick="markAppliedDirect('tanyin')">我已在平台投递</button>
+        <button class="mark-btn" id="cancel-tanyin" style="display:none" onclick="cancelApplied('tanyin')">取消投递标记</button>
+        <div class="fb"><input id="fbinput-tanyin" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('tanyin')">保存反馈</button><button onclick="clearFeedback('tanyin')">清除反馈</button></div>
       </div>
     </div>
 
@@ -210,6 +263,24 @@
         <button class="mark-btn" id="cancel-yixinlu" style="display:none" onclick="cancelApplied('yixinlu')">取消投递标记</button>
         <div class="fb"><input id="fbinput-yixinlu" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('yixinlu')">保存反馈</button><button onclick="clearFeedback('yixinlu')">清除反馈</button></div>
       </div>
+      <div class="item" id="job-xindefu" data-job="xindefu">
+        <div class="meta">发布日期未核实 · 来源：51job · 投递状态：<span class="apply-status" id="status-xindefu">未投递</span> · 反馈：<span id="fb-xindefu">暂无反馈</span></div>
+        <h3>薪得付信息技术（上海）有限公司 · Global Payroll 薪资专员</h3><div class="md"><ul><li><strong>地点：</strong>上海·闵行区（路名未显示）</li><li><strong>薪资：</strong>1-1.5万</li><li><strong>要求：</strong>要求见详情页</li></ul></div>
+        <p>来源：51job · <a href="https://jobs.51job.com/shanghai-mhq/172841788.html" target="_blank" rel="noopener" style="color:#A63A2F;font-weight:700">打开详情页 ↗</a></p>
+        <a class="apply-btn" href="https://jobs.51job.com/shanghai-mhq/172841788.html" target="_blank" rel="noopener">去投递 →</a>
+        <button class="mark-btn" onclick="markAppliedDirect('xindefu')">我已在平台投递</button>
+        <button class="mark-btn" id="cancel-xindefu" style="display:none" onclick="cancelApplied('xindefu')">取消投递标记</button>
+        <div class="fb"><input id="fbinput-xindefu" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('xindefu')">保存反馈</button><button onclick="clearFeedback('xindefu')">清除反馈</button></div>
+      </div>
+      <div class="item" id="job-xinnuofei" data-job="xinnuofei">
+        <div class="meta">发布日期未核实 · 来源：51job · 投递状态：<span class="apply-status" id="status-xinnuofei">未投递</span> · 反馈：<span id="fb-xinnuofei">暂无反馈</span></div>
+        <h3>昕诺飞（中国）投资有限公司 · HR Admin&Payroll Specilist</h3><div class="md"><ul><li><strong>地点：</strong>上海·闵行区（路名未显示）</li><li><strong>薪资：</strong>1-1.5万</li><li><strong>要求：</strong>要求见详情页</li></ul></div>
+        <p>来源：51job · <a href="https://jobs.51job.com/shanghai-mhq/166222802.html" target="_blank" rel="noopener" style="color:#A63A2F;font-weight:700">打开详情页 ↗</a></p>
+        <a class="apply-btn" href="https://jobs.51job.com/shanghai-mhq/166222802.html" target="_blank" rel="noopener">去投递 →</a>
+        <button class="mark-btn" onclick="markAppliedDirect('xinnuofei')">我已在平台投递</button>
+        <button class="mark-btn" id="cancel-xinnuofei" style="display:none" onclick="cancelApplied('xinnuofei')">取消投递标记</button>
+        <div class="fb"><input id="fbinput-xinnuofei" placeholder="记录招聘单位反馈，例如：已查看 / 约面试…"><button onclick="saveFeedback('xinnuofei')">保存反馈</button><button onclick="clearFeedback('xinnuofei')">清除反馈</button></div>
+      </div>
     </div>
     <div class="jobpanel" id="panel-applied">
       <p style="color:#444;line-height:1.8;font-size:14px">本 Tab 只显示你在本页浏览器里标记为已投递的岗位（本地记录），按投递时间从近到远排序，展示最近 5 个，其余折叠；不含 51job 历史投递，也不向招聘方同步。在对应日期 Tab 里完成平台投递后，点卡片上的“我已在平台投递”，这里就会出现；点行里的“取消投递标记”可回退（误点或实际未投递时用，只取消本页本地标记，不撤销平台上的投递）。</p>
@@ -220,7 +291,7 @@
 
     
   </div>
-  <footer>更新于 2026-10-27 晚 · V2.19。</footer>
+  <footer>更新于 2026-10-27 晚 · V2.21。</footer>
 </div>
 <script>
 
@@ -236,6 +307,13 @@ const JOBS = [
   {id:"meida", title:"上海美达建筑工程有限公司 · 行政人事专员", tab:"10-16", url:"https://www.zhaopin.com/jobdetail/CC198225110J40885095001.htm"},
   {id:"baoli", title:"保利和润房地产投资顾问有限公司 · 薪酬与员工关系岗", tab:"日期未核实", url:"https://jobs.51job.com/shanghai-xhq/173223321.html"},
   {id:"yixinlu", title:"易薪路网络科技（上海）有限公司 · 薪酬专员", tab:"日期未核实", url:"https://jobs.51job.com/shanghai-xhq/172279454.html"},
+  {id:"zhongzhi", title:"上海中智项目外包咨询服务有限公司 · 人事专员（1年）", tab:"10-28", url:"https://www.zhaopin.com/jobdetail/CC209328710J40852938716.htm"},
+  {id:"shenhan", title:"上海神瀚人力资源有限公司 · 行政综合管理岗/双休", tab:"10-27", url:"https://www.zhaopin.com/jobdetail/CCL1500595290J40930391403.htm"},
+  {id:"baide", title:"安徽百得思维信息科技有限公司 · 行政综合（科大讯飞）", tab:"10-27", url:"https://www.zhaopin.com/jobdetail/CC571829420J40907236705.htm"},
+  {id:"xuehua", title:"华润雪花 · HRBP", tab:"10-27", url:"https://www.zhaopin.com/jobdetail/CC133030060J40808356906.htm"},
+  {id:"tanyin", title:"上海探洇医学检验实验室有限公司 · 人事行政专员", tab:"10-26", url:"https://www.zhaopin.com/jobdetail/CCL1313255140J40886096207.htm"},
+  {id:"xindefu", title:"薪得付信息技术（上海）有限公司 · Global Payroll 薪资专员", tab:"日期未核实", url:"https://jobs.51job.com/shanghai-mhq/172841788.html"},
+  {id:"xinnuofei", title:"昕诺飞（中国）投资有限公司 · HR Admin&Payroll Specilist", tab:"日期未核实", url:"https://jobs.51job.com/shanghai-mhq/166222802.html"},
 ];
 function appliedSortKey(s){
   if(!s) return 0;

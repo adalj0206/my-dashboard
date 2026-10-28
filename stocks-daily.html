@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个股日报 · 美食佳的知识库</title>
+<meta name="description" content="美食佳的知识库：个股日报。只放真实内容，无示例、无模拟。">
+<style>
+  :root{--bg:#FAF6EE;--card:#FFFCF5;--text:#262019;--muted:#7A7264;--line:#E3DCCB;--accent:#A63A2F;--green:#A63A2F;--radius:12px}
+  *{box-sizing:border-box} body{margin:0;background-color:var(--bg);background-image:radial-gradient(rgba(120,100,60,.13) 1px,transparent 1.2px);background-size:22px 22px;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  a{color:inherit;text-decoration:none} button{font:inherit;cursor:pointer}
+  header{position:sticky;top:0;z-index:20;background:rgba(250,246,238,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top{max-width:900px;margin:0 auto;padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .logo{font-size:20px;font-weight:800}.logo span{color:var(--accent)}
+  nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto} nav a{font-size:14px;padding:7px 12px;border-radius:999px} nav a:hover{background:#F3E9D8}
+  .wrap{max-width:900px;margin:0 auto;padding:20px 20px 60px}
+  section.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:22px 0}
+  section.block h2{font-size:26px;margin:0 0 6px;border-bottom:2px solid #1d1d1f;padding-bottom:10px} section.block .desc{color:var(--muted);line-height:1.7;margin:0 0 20px}
+  .item{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+  .item .meta{font-size:13px;color:var(--muted)}
+  .item h3{margin:8px 0;font-size:17px;line-height:1.5}.item p{margin:8px 0;line-height:1.8;color:#444;font-size:14px}
+  .tag{display:inline-block;background:transparent;border:1px solid var(--line);border-radius:999px;color:#7A7264;padding:2px 8px;font-size:12px;margin-right:6px}
+  .status{color:var(--green);font-weight:700}
+  .more-btn{width:100%;margin-top:4px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:10px;font-size:14px}
+  .more-btn:hover{background:#F3E9D8}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .grid3 a,.grid3 .card{border:1px solid var(--line);border-radius:12px;padding:16px;display:block;background:var(--card)}
+  .grid3 a:hover{border-color:#D8CDB4}
+  .grid3 h3{margin:6px 0;font-size:16px;line-height:1.5}.grid3 p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}.grid3 .src{font-size:13px;color:var(--muted)}
+  .stockgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .stock{border:1px solid var(--line);border-radius:12px;padding:16px}.stock h3{margin:0 0 8px;font-size:17px}.stock p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}.stock .price{font-size:20px;font-weight:800}.stock .up{color:#000000}.stock .down{color:#000000}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px}.tabs button.active{background:#F3E9D8;color:#A63A2F;border-color:#E3DCCB}
+  .jobpanel{display:none}.jobpanel.active{display:block}
+  .apply-btn{border:0;background:var(--accent);color:#fff;border-radius:999px;padding:9px 18px;font-size:14px;margin-right:8px}
+  .mark-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 16px;font-size:14px}
+  .fb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.fb input{flex:1;min-width:200px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}.fb button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:13px}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;place-items:center;z-index:50;padding:16px}
+  .modal.open{display:grid}.sheet{background:var(--card);border-radius:12px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:24px}
+  .sheet h3{font-size:19px;line-height:1.5;margin:10px 0}.sheet p{line-height:1.8;color:#444}
+  .close{float:right;border:0;background:#F3E9D8;border-radius:50%;width:32px;height:32px}
+  footer{color:var(--muted);font-size:13px;line-height:1.9;text-align:left;padding:10px 0 30px}
+  @media(max-width:820px){.grid3,.grid2{grid-template-columns:1fr}.stockgrid{grid-template-columns:1fr}}
+
+  .num{font-size:13px;letter-spacing:.08em;color:#A63A2F;font-weight:700;margin-bottom:6px}
+  .page-title{font-size:34px;margin:12px 0}
+  .page-intro{color:#444;line-height:1.8;max-width:none;margin:0 0 20px;border:1px dashed #D8CDB4;background:var(--card);border-radius:12px;padding:14px 16px}
+  nav a.active{background:#F3E9D8;color:#A63A2F}
+  .stock-item{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}.stock-item h3{margin:0 0 10px;font-size:17px}.stock-item p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}.period{margin-bottom:8px}.period .meta{font-size:13px;color:var(--muted)}.note{font-size:13px;color:#6e6e73}
+  .search{position:relative;margin-left:12px}
+  .search input{border:1px solid #E3DCCB;border-radius:999px;padding:7px 12px;font-size:14px;width:200px;background:#fff;color:#000}
+  .search-results{position:absolute;top:38px;right:0;width:320px;max-height:420px;overflow:auto;background:var(--card);border:1px solid #E3DCCB;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08);display:none;z-index:60}
+  .search-hit{display:block;padding:12px 14px;border-bottom:1px solid #F1E8D5}
+  .search-hit strong{display:block;font-size:14px;line-height:1.5}
+  .search-hit span{display:block;font-size:13px;color:#666;line-height:1.6;margin-top:2px}
+  .search-hit:hover{background:#F3E9D8}
+  .search-empty{padding:14px;font-size:14px;color:#666}
+  .stock .up::before{content:"▲ "} .stock .down::before{content:"▼ "}
+  .back-top{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;background:#FFFCF5;border:1px solid #E3DCCB;color:#A63A2F;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;z-index:70;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:0}
+  .cat-links{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+  .cat-links a{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:14px}
+  .cat-links a:hover{background:#F3E9D8;color:#A63A2F}
+  .stock-line{border:0;border-top:2px solid #000;margin:16px 0}
+  .report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
+  .report-col{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px;display:flex;flex-direction:column}
+  .report-col .col-label{align-self:flex-start}
+  .report-col .ph{flex:1}
+  .report-col h4{margin:0 0 10px;font-size:16px}
+  .report-item p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}
+  .report-item .meta{font-size:13px;color:#666}
+  .detail{color:#444;line-height:1.7;font-size:14px;border-bottom:1px dashed #E3DCCB;padding:7px 0}
+  @media(max-width:820px){.report-grid{grid-template-columns:1fr}}
+  html{scroll-behavior:smooth} [id]{scroll-margin-top:90px}
+  .md p{margin:8px 0;line-height:1.8} .md ul,.md ol{margin:8px 0 8px 20px;line-height:1.8} .md li{margin:4px 0} .md h5{margin:12px 0 6px;font-size:15px}
+  .accent{color:#A63A2F} .cat h2{border-bottom:2px solid #1d1d1f;padding-bottom:8px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .grid2 a{border:1px solid var(--line);border-radius:12px;padding:16px;display:block;background:var(--card)}
+  .grid2 a:hover{border-color:#D8CDB4} .grid2 h3{margin:6px 0;font-size:16px;line-height:1.5}
+  .grid2 p{margin:6px 0;color:#444;line-height:1.7;font-size:14px}
+  .ext{color:#A63A2F;font-weight:700} .navsec{margin:0 0 28px}
+  .navsec h2{font-size:22px;margin:0 0 4px;border-bottom:2px solid #1d1d1f;padding-bottom:10px}
+  .navsec .secnum{color:#A63A2F} .navsec .desc{color:var(--muted);line-height:1.7;margin:8px 0 14px;font-size:14px}
+  .statgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:12px 0}
+  .stat{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card)}
+  .stat .sl{display:block;font-size:12px;color:var(--muted);margin-bottom:4px} .stat strong{font-size:16px}
+  .pair{margin:0 0 18px} .pair-head{font-size:15px;font-weight:700;margin:0 0 10px} .pair-date{color:#A63A2F}
+  .col-label{display:inline-block;background:#F3E9D8;color:#A63A2F;font-weight:700;border-radius:999px;padding:3px 12px;font-size:14px;margin-bottom:8px}
+  .datarow{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed #E3DCCB;padding:7px 0;font-size:14px;line-height:1.7}
+  .datarow .dl{color:var(--muted)} .datarow .dv{font-weight:700;text-align:right}
+  .barrow{border-bottom:1px dashed #E3DCCB;padding:7px 0;font-size:14px} .bar-label{display:flex;justify-content:space-between}
+  .bartrack{height:8px;background:#F1E8D5;border-radius:999px;margin-top:6px;overflow:hidden}
+  .barfill{height:100%;border-radius:999px} .barfill.rsi{background:#A63A2F} .barfill.pos{background:#8A7D3B}
+  .pending{border:1px dashed #D8CDB4;border-radius:10px;padding:12px 14px} .pending p{margin:8px 0 0;line-height:1.8;color:#444;font-size:14px}
+  @media(max-width:820px){.statgrid{grid-template-columns:repeat(3,1fr)}}
+  .debate{margin-top:4px} .side{border-left:4px solid;padding:10px 14px;margin-bottom:10px;border-radius:0 10px 10px 0}
+  .side.red{border-color:#B03A2E;background:#FDF2F0} .side.blue{border-color:#2E5A8A;background:#F0F4FA} .side.judge{border-color:#8A7D3B;background:#F7F3E2}
+  .side strong{display:block;margin-bottom:4px} .side p{margin:0;line-height:1.8;font-size:14px}
+
+  [data-theme="dark"]{--bg:#1E1A16;--card:#2A241E;--text:#E8E2D6;--muted:#9C9484;--line:#3D362C;--accent:#E8604C;--green:#E8604C}
+  .theme-toggle{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;width:36px;height:36px;font-size:16px;line-height:1;padding:0}
+  .theme-toggle:hover{border-color:var(--accent)}
+  [data-theme="dark"] body{background-image:radial-gradient(rgba(200,180,140,.07) 1px,transparent 1.2px)}
+  [data-theme="dark"] header{background:rgba(30,26,22,.95)}
+  [data-theme="dark"] nav a{color:#E8E2D6}
+  [data-theme="dark"] nav a:hover{background:#2E2820}
+  [data-theme="dark"] nav a.active{background:#3A3226;color:#F2EEE3}
+  [data-theme="dark"] h2,[data-theme="dark"] h3{color:#F2EEE3}
+  [data-theme="dark"] .item p,[data-theme="dark"] .grid3 p,[data-theme="dark"] .grid2 p,[data-theme="dark"] .stock p,[data-theme="dark"] .sheet p,[data-theme="dark"] .page-intro,[data-theme="dark"] .detail,[data-theme="dark"] .report-item p,[data-theme="dark"] .pending p,[data-theme="dark"] .qa p{color:#C9C2B2}
+  [data-theme="dark"] .tag{color:#9C9484}
+  [data-theme="dark"] .search input{background:#221D18;color:#E8E2D6;border-color:#3D362C}
+  [data-theme="dark"] .search input::placeholder{color:#9C9484}
+  [data-theme="dark"] .search-results{border-color:#3D362C;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+  [data-theme="dark"] .search-hit{border-bottom-color:#3D362C}
+  [data-theme="dark"] .search-hit span,[data-theme="dark"] .search-empty,[data-theme="dark"] .report-item .meta{color:#9C9484}
+  [data-theme="dark"] .search-hit:hover,[data-theme="dark"] .more-btn:hover,[data-theme="dark"] .cat-links a:hover{background:#3A3226;color:#F08066}
+  [data-theme="dark"] .grid3 a:hover,[data-theme="dark"] .grid2 a:hover{border-color:#57493A}
+  [data-theme="dark"] .page-intro,[data-theme="dark"] .pending{border-color:#57493A}
+  [data-theme="dark"] .bartrack{background:#3A3226}
+  [data-theme="dark"] .col-label{background:#3A3226;color:#F08066}
+  [data-theme="dark"] .qa-q{background:#2A241E;border-left-color:#E8604C}
+  [data-theme="dark"] .qa-a{background:#2E2A1C;border-left-color:#8A7D3B}
+  [data-theme="dark"] .qa-label.q{background:#3A3226;color:#F08066}
+  [data-theme="dark"] .qa-label.a{background:#3A3423;color:#C9B978}
+  [data-theme="dark"] .side.red{background:#33211E;border-color:#E8604C}
+  [data-theme="dark"] .side.blue{background:#1E2632;border-color:#6E97C4}
+  [data-theme="dark"] .side.judge{background:#2E2A1C;border-color:#8A7D3B}
+  [data-theme="dark"] .barfill.rsi{background:#E8604C}
+  [data-theme="dark"] .barfill.pos{background:#B3A05C}
+  [data-theme="dark"] section.block h2,[data-theme="dark"] .cat h2,[data-theme="dark"] .navsec h2{border-bottom-color:#6B5F4C}
+  [data-theme="dark"] .qa-line{border-top-color:#6B5F4C}
+  [data-theme="dark"] .stock-line{border-top-color:#6B5F4C}
+  [data-theme="dark"] .num,[data-theme="dark"] .accent,[data-theme="dark"] .ext,[data-theme="dark"] .navsec .secnum,[data-theme="dark"] .pair-date{color:#E8604C}
+  [data-theme="dark"] .stock .up,[data-theme="dark"] .stock .down{color:#F2EEE3}
+  [data-theme="dark"] .qa .who{color:#F2EEE3}
+  [data-theme="dark"] .datarow,[data-theme="dark"] .detail{border-bottom-color:#3D362C}
+  [data-theme="dark"] .back-top{background:#2A241E;border-color:#3D362C;color:#E8604C;box-shadow:0 2px 10px rgba(0,0,0,.45)}
+  [data-theme="dark"] .close{background:#3A3226;color:#E8E2D6}
+  [data-theme="dark"] .tabs button.active{background:#3A3226;color:#F08066;border-color:#3D362C}
+  [data-theme="dark"] .cat .count,[data-theme="dark"] .note{color:#9C9484}
+  [data-theme="dark"] .fb input{background:#221D18;color:#E8E2D6;border-color:#3D362C}
+  [data-theme="dark"] .fb input::placeholder{color:#9C9484}
+
+/* V2.19 版式统一 */
+.search{flex:1 1 100%;margin-left:0;margin-top:10px}
+.search input{width:100%;box-sizing:border-box}
+.search-results{width:100%;left:0;right:auto;box-sizing:border-box}
+.ph{border:1.5px dashed var(--line);border-radius:12px;background:var(--card);padding:14px 16px;min-height:96px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.ph p{margin:0;line-height:1.8;font-size:14px;color:var(--text)}
+.ph-tag{display:inline-block;align-self:flex-start;border:1px solid var(--line);border-radius:999px;color:var(--muted);padding:2px 10px;font-size:12px}
+.pill-missing{display:inline-block;border:1px dashed var(--line);border-radius:999px;padding:1px 10px;font-size:13px;font-weight:400;color:var(--muted)}
+[data-theme="dark"] .ph{border-color:#57493A}
+[data-theme="dark"] .pill-missing{border-color:#57493A}
+@media(max-width:640px){.statgrid{grid-template-columns:repeat(2,1fr)}.report-grid{grid-template-columns:1fr}nav{flex-wrap:wrap}.cat-links{flex-wrap:wrap}}
+@media(max-width:400px){.statgrid{grid-template-columns:1fr}}
+
+.stock-item h3 .stock-sub{display:block;font-size:13px;font-weight:400;color:var(--muted);margin-top:4px}
+.datarow .dl{white-space:nowrap;flex-shrink:0}
+.datarow .dv{min-width:0;overflow-wrap:break-word}
+
+  .daily-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}
+  .daily-card h2{font-size:20px;margin:0 0 12px}
+  .daily-card h3{font-size:17px;margin:18px 0 8px}
+  .daily-card table{width:100%;border-collapse:collapse;font-size:14px}
+  .daily-card th,.daily-card td{padding:8px 6px;border-bottom:1px dashed var(--line);text-align:left}
+  .daily-card th{color:var(--muted);font-weight:700}
+  .daily-card .up,.daily-card .down{color:var(--text);font-weight:700}
+  .daily-card .red{border-left:4px solid #B03A2E;background:#FDF2F0;padding:12px 14px;border-radius:0 10px 10px 0;margin:10px 0}
+  .daily-card .blue{border-left:4px solid #2E5A8A;background:#F0F4FA;padding:12px 14px;border-radius:0 10px 10px 0;margin:10px 0}
+  .daily-card .judge{border-left:4px solid #8A7D3B;background:#F7F3E2;padding:14px;border-radius:0 10px 10px 0;margin:10px 0}
+  [data-theme="dark"] .daily-card .red{background:#3A2420}
+  [data-theme="dark"] .daily-card .blue{background:#1F2A38}
+  [data-theme="dark"] .daily-card .judge{background:#332E1C}
+  .daily-card .small{color:var(--muted);font-size:13px;line-height:1.7}
+  .daily-card .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:12px;color:var(--muted)}
+  .daily-card .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:700px){.daily-card .grid{grid-template-columns:1fr}.daily-card table{font-size:13px}}
+  .daily-card ul{line-height:1.8}
+  .archive-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;border-bottom:1px dashed var(--line);padding:10px 0;font-size:14px;line-height:1.7}
+  .archive-row .ad{color:var(--accent);font-weight:700;white-space:nowrap}
+</style>
+<script>try{var _t=localStorage.getItem("theme");if(_t==="dark"){document.documentElement.setAttribute("data-theme","dark")}}catch(e){}</script>
+
+</head>
+<body>
+<header id="top"><div class="top"><div class="logo">美食佳<span>的知识库</span></div><nav><a href="wechat.html">微信畅谈</a><a href="stocks.html">个股成长</a><a href="stocks-daily.html" class="active">个股日报</a><a href="jobs.html">招聘打野</a><a href="datanav.html">数据导航</a><a href="https://newsnow-bex.pages.dev/c/focus" target="_blank" rel="noopener">新闻聚合 ↗</a></nav><button class="theme-toggle" id="theme-toggle" aria-label="切换夜间模式">🌙</button><div class="search"><input id="global-search" placeholder="搜索全站…" autocomplete="off"><div class="search-results" id="search-results"></div></div></div></header>
+<script>(function(){var b=document.getElementById("theme-toggle");if(!b)return;function paint(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.textContent=d?"☀️":"🌙";b.setAttribute("aria-label",d?"切换到浅色":"切换到夜间")}b.addEventListener("click",function(){var dark=document.documentElement.getAttribute("data-theme")==="dark";try{localStorage.setItem("theme",dark?"light":"dark")}catch(e){}if(dark){document.documentElement.removeAttribute("data-theme")}else{document.documentElement.setAttribute("data-theme","dark")}paint()});paint()})();</script>
+<div class="wrap">
+  <p class="page-intro">个股日报：全市场盘前与收盘报告的站内阅读页。个股页继续负责“每只股现在怎么样”，这里负责“今天全市场报告说了什么”。只展示公开行情与技术指标，不展示资产金额；不构成投资建议。微信推送的日报链接直接指向本页（永远显示最新一期）；按日期固定的完整报告文件仍在 reports/ 归档中，可从下方日期标签打开。</p>
+  <div class="cat-links"><a href="stocks.html">← 回到个股成长</a><a href="reports/premarket-2026-10-28.html">本期完整报告 ↗</a></div>
+  <section class="block">
+    <h2>按日期查看</h2>
+    <p class="desc">日期从近到远；点日期只显示该日期的内容。最新日期标签里是报告全文，其他日期是链接与状态。</p>
+    <div class="tabs" id="dailytabs">
+      <button data-tab="d20261028" class="active" onclick="setDailyTab('d20261028')">2026-10-28</button>
+    </div>
+    <div class="jobpanel active" id="panel-d20261028" data-date="2026-10-28" data-pre="reports/premarket-2026-10-28.html" data-pre-judge="5 涨 2 跌，资源涨、港股医药跌：今日不追云铝的放量反弹，也不抄恒生新药的连续大跌。" data-close="" data-close-judge="">
+      <p class="desc">盘前：<a href="reports/premarket-2026-10-28.html">完整盘前报告 ↗</a>　｜　收盘：待生成</p>
+      <p class="desc">盘前判断：5 涨 2 跌，资源涨、港股医药跌：今日不追云铝的放量反弹，也不抄恒生新药的连续大跌。</p>
+      <div class="daily-body">
+<div class="daily-card"><h1>盘前报告 · 微信持仓 7 股</h1>
+<p><span class="badge">2026-10-28 盘前</span><span class="badge">数据截至 2026-10-27 收盘</span></p>
+<p>方向与仓位由行业趋势 + 基本面 + 估值决定；技术面只提供执行参数。<br>本报告只做信息整理与分析，<b>不构成投资建议</b>。个股只用微信截图里的 7 只，不沿用模板里紫金、粤芯等非持仓股。<br><b>持仓与上一期一致（已核对新上传信息）。</b></p></div>
+
+<div class="daily-card"><h2>开篇总裁判 · 一句话</h2>
+<div class="judge"><b>5 涨 2 跌，资源涨、港股医药跌：今日不追云铝的放量反弹，也不抄恒生新药的连续大跌。</b><br>
+煤炭铝股维持观察，黄金 ETF 作平衡，恒生新药只看不买；等山煤、平煤 Q3 说明会正文与云铝分红细节落地再议。</div>
+</div>
+
+<div class="daily-card"><h2>C0 · 自选股分类表</h2>
+<table><tr><th>分类</th><th>股票 / 代码</th><th>10-27 收盘<br>Finnhub</th><th>当日</th><th>PanWatch<br>10-27 收盘</th><th>微信截图<br>12:56 价</th></tr>
+<tr><td>铝</td><td>云铝股份 000807</td><td>26.17</td><td class="up">+3.44%</td><td>26.10</td><td>26.08</td></tr>
+<tr><td>煤炭</td><td>山煤国际 600546</td><td>12.14</td><td class="up">+0.58%</td><td>12.09</td><td>12.09</td></tr>
+<tr><td>铝</td><td>中孚实业 600595</td><td>5.80</td><td class="up">+1.05%</td><td>5.78</td><td>5.83</td></tr>
+<tr><td>煤炭</td><td>潞安环能 601699</td><td>14.35</td><td class="up">+1.41%</td><td>14.29</td><td>14.33</td></tr>
+<tr><td>煤炭</td><td>平煤股份 601666</td><td>8.01</td><td class="up">+1.91%</td><td>7.97</td><td>8.00</td></tr>
+<tr><td>黄金股</td><td>黄金股 ETF 华夏 159562</td><td>1.823</td><td class="down">-0.11%</td><td>1.813</td><td>1.832</td></tr>
+<tr><td>港股创新药</td><td>恒生新药 520500</td><td>1.204</td><td class="down">-4.82%</td><td>1.200</td><td>1.216</td></tr></table>
+<p class="small">说明：Finnhub 与 PanWatch 收盘价有 0.004–0.07 元差异，属不同数据源 / 最后一笔时刻差异。结论用两者共同点：云铝等 5 只 A 股都站上各自 MA20（见第三面），恒生新药和黄金 ETF 都在 MA20 之下。沪指、恒指 10-27 收盘本轮未拿到可核实值，记 N/A，不编。</p></div>
+
+<div class="daily-card"><h2>开盘要点 · 红蓝对抗</h2>
+<div class="red"><b>🔴 红方 · 最强多头：</b>5 只 A 股全涨，铝简单平均 +2.25%、煤炭简单平均 +1.30%（简单平均，非按仓位加权）；云铝当日主力净流入 +1.41 亿元、5 日 +1.29 亿元（PanWatch / 东财口径），是当日唯一主力大幅净流入的持仓股。</div>
+<div class="blue"><b>🔵 蓝方 · 一针见血：</b>恒生新药 -4.82%、主力净流出 -1.27 亿元、5 日主力 -1.86 亿元；黄金股 ETF 20 日 -18.08%、恒生新药 20 日 -17.13%——两只 ETF 的 20 日跌幅远大于 A 股，卫星仓当日没有起到对冲作用。</div>
+<div class="judge"><b>⚖ 总裁判：中性偏谨慎。</b>多头是“一日全涨 + 云铝放量”，空头是“20 日均跌 + ETF 大跌 + 恒生资金流出”。一日反弹不改 20 日趋势，所以基调是观察、不追、不抄。</div></div>
+
+<div class="daily-card"><h2>第一面 · 行业趋势判断</h2>
+<table><tr><th>分类</th><th>10-27 简单平均</th><th>20 日简单平均</th><th>趋势判断</th></tr>
+<tr><td>煤炭（山煤 / 潞安 / 平煤）</td><td class="up">+1.30%</td><td class="down">-10.39%</td><td>震荡偏弱：一日反弹，20 日仍大跌</td></tr>
+<tr><td>铝（云铝 / 中孚）</td><td class="up">+2.25%</td><td class="down">-3.40%</td><td>震荡偏弱转观察：云铝站上 MA20，仍未站上 MA60</td></tr>
+<tr><td>黄金股 ETF</td><td class="down">-0.11%</td><td class="down">-18.08%</td><td>震荡偏弱：20 日跌幅大，但按模板纪律不一次判“下行”</td></tr>
+<tr><td>港股创新药 ETF</td><td class="down">-4.82%</td><td class="down">-17.13%</td><td>震荡偏弱：当日领跌，资金大幅流出</td></tr></table>
+<p class="small">“下行”判定纪律（沿用模板）：需连续两期确认 + 双源确认才触发 ×0.5；本期为持仓版第一期，五个分类无一下行，不触发。沪指、恒指、美股可比本期记 N/A，不用上期值代替本期。</p>
+<h3>本面红蓝对抗 + 裁判</h3>
+<div class="red"><b>🔴 红方：</b>云铝放量站上 MA20，且当日主力净流入为正，A 股资源线当日是同向的。</div>
+<div class="blue"><b>🔵 蓝方：</b>煤炭 20 日简单平均 -10.39%，说明当日反弹发生在下跌趋势里；恒生新药当日 -4.82% 且主力流出，港股医药线与 A 股线背离。</div>
+<div class="judge"><b>⚖ 裁判：</b>行业上不做“煤炭见顶 / 铝反转”的单边判断。煤炭看止跌确认，铝看云铝能否收盘站稳 MA60，黄金和港股医药只看不加。</div></div>
+
+<div class="daily-card"><h2>第二面 · 基本面深研</h2>
+<h3>F1 · 估值（Finnhub 口径，2026-10-27 快照；ETF 的 PE 记 N/A）</h3>
+<table><tr><th>股票</th><th>PE</th><th>EPS（元）</th><th>市值</th></tr>
+<tr><td>云铝股份</td><td>7.79</td><td>1.75</td><td>约 854.9 亿元</td></tr>
+<tr><td>山煤国际</td><td>15.78</td><td>0.5884</td><td>约 240.1 亿元</td></tr>
+<tr><td>中孚实业</td><td>7.96</td><td>0.40</td><td>约 222.0 亿元</td></tr>
+<tr><td>潞安环能</td><td>27.35</td><td>0.3728</td><td>约 422.4 亿元</td></tr>
+<tr><td>平煤股份</td><td>66.06</td><td>0.0937</td><td>约 191.7 亿元</td></tr>
+<tr><td>黄金股 ETF / 恒生新药 ETF</td><td>N/A</td><td>N/A</td><td>N/A（ETF 不用个股 PE）</td></tr></table>
+<p class="small">只看 PE：云铝、中孚在 8 倍以下相对便宜，平煤 66 倍最贵，潞安 27 倍居中。PE 便宜不等于安全，见云铝日报 v3 的情景算账：全年利润 142–159 亿元对应 PE 约 6.0–5.4 倍（按 Finnhub 市值口径），前提是 Q3/Q4 不低于 Q2 的 0.8 倍。</p>
+<h3>F2 · 基本面动态（只收 PanWatch 近 14 天事件标题，有变动的才列）</h3>
+<ul><li><b>云铝：</b>10-23《2026 年中期利润分配实施公告》——金额、股权登记日、除权日未抓到正文，记待补，不编。</li>
+<li><b>山煤：</b>10-27《2026 年第三季度业绩说明会公告》——会议时间需读正文，不直接写日期。</li>
+<li><b>中孚：</b>10-21《2026 年第三季度报告》、10-27《2025 年员工持股计划第一期已解锁部分股份非交易过户完成公告》、10-15《Q3 业绩说明会公告》。</li>
+<li><b>平煤：</b>10-27《2026 年第三季度业绩说明会公告》——会议时间需读正文。</li>
+<li><b>潞安 / 黄金股 ETF / 恒生新药：</b>近 14 天 PanWatch 事件为空，不等于没有公告，只说明本源未返回。</li></ul>
+<h3>F3 · 风险排查（6 类：下调预期 / 减持 / 收入预减 / 亏损 / 现金流赤字 / 造假立案）</h3>
+<p>仅按上述事件标题排查：7 只均未在标题层面出现上述 6 类信号，风险乘数暂记 1.0。这不是全面排查——中孚 Q3 报告、云铝分红正文、山煤 / 平煤说明会正文都还没读，读到正文后要重评。</p></div>
+
+<div class="daily-card"><h2>第三面 · 技术面 · 执行参考</h2>
+<p class="small">本节只给价位 / 止损 / 节奏，不参与方向与仓位投票。均线、RSI、MACD 由 PanWatch 日 K 自算，截至 10-27 PanWatch 收盘口径；硬止损 = 10-27 最低价下方约 4%。</p>
+<table><tr><th>股票</th><th>MA20 / MA60</th><th>RSI14</th><th>MACD / 信号线</th><th>20 日高 / 低</th><th>硬止损约</th></tr>
+<tr><td>云铝</td><td>25.83 / 26.46</td><td>51.2</td><td>-0.358 / -0.352</td><td>27.28 / 24.08</td><td>24.33</td></tr>
+<tr><td>山煤</td><td>13.09 / 13.14</td><td>36.2</td><td>-0.298 / -0.134</td><td>14.07 / 11.77</td><td>11.45</td></tr>
+<tr><td>中孚</td><td>5.81 / 6.17</td><td>46.8</td><td>-0.125 / -0.134</td><td>6.14 / 5.41</td><td>5.50</td></tr>
+<tr><td>潞安</td><td>15.05 / 15.75</td><td>37.5</td><td>-0.403 / -0.313</td><td>16.06 / 13.85</td><td>13.49</td></tr>
+<tr><td>平煤</td><td>8.48 / 8.91</td><td>33.6</td><td>-0.306 / -0.248</td><td>9.18 / 7.68</td><td>7.53</td></tr>
+<tr><td>黄金 ETF</td><td>2.00 / 2.18</td><td>32.1</td><td>-0.095 / -0.080</td><td>2.217 / 1.776</td><td>1.74</td></tr>
+<tr><td>恒生新药</td><td>1.333 / 1.381</td><td>33.5</td><td>-0.038 / -0.028</td><td>1.457 / 1.199</td><td>1.15</td></tr></table>
+<h3>T1 · 资金与筹码（PanWatch，10-27 资金流；两融为 10-26 最新一条）</h3>
+<table><tr><th>股票</th><th>主力净流入</th><th>主力 5 日</th><th>融资余额（10-26）</th></tr>
+<tr><td>云铝</td><td class="up">+1.41 亿元</td><td class="up">+1.29 亿元</td><td>19.39 亿元</td></tr>
+<tr><td>山煤</td><td class="down">-0.09 亿元</td><td class="down">-0.82 亿元</td><td>6.37 亿元</td></tr>
+<tr><td>中孚</td><td class="down">-0.13 亿元</td><td class="down">-0.69 亿元</td><td>5.51 亿元</td></tr>
+<tr><td>潞安</td><td class="up">+0.04 亿元</td><td class="down">-0.40 亿元</td><td>6.63 亿元</td></tr>
+<tr><td>平煤</td><td class="down">-0.04 亿元</td><td class="down">-0.22 亿元</td><td>1.50 亿元</td></tr>
+<tr><td>黄金 ETF</td><td class="down">-0.02 亿元</td><td class="down">-0.47 亿元</td><td>0.67 亿元</td></tr>
+<tr><td>恒生新药</td><td class="down">-1.27 亿元</td><td class="down">-1.86 亿元</td><td>1.47 亿元</td></tr></table>
+<p class="small">7 只主力净流入简单合计约 -0.10 亿元（云铝 +1.41 亿基本对冲了恒生新药 -1.27 亿），5 日合计约 -3.16 亿元。股东户数：云铝 157,851 户（2026-06-30，+23.49%）、山煤 40,092 户（2026-06-30，-29.99%）、中孚 122,108 户（2026-09-30，+19.01%）、潞安 53,000 户（2026-10-10，+1.92%）、平煤 51,362 户（2026-09-18，-6.86%）；两只 ETF 无股东户数数据，记 N/A；户均持股在 PanWatch 返回中为 null，不算。</p>
+<h3>节奏</h3>
+<ul><li><b>立即 / 分批：无。</b>没有一只同时满足“收盘站稳关键位 + 资金转正确认 + 风险排查通过”。</li>
+<li><b>等待：</b>云铝（等收盘站稳 MA60 26.46 元，或回踩 MA20 25.83 元企稳）、中孚（等放量突破 20 日高 6.14 元；MACD 已略上穿信号线，需第二日确认）、山煤 / 潞安 / 平煤（等煤炭止跌 + 说明会正文落地）。</li>
+<li><b>只看不买：</b>恒生新药、黄金股 ETF（20 日大跌、MACD 偏空，不补仓、不抄底）。</li></ul>
+<p class="small">2% rule：任何单笔计划亏损不超过组合总值的 2%。硬止损只是执行参数，不是卖出指令。</p></div>
+
+<div class="daily-card"><h2>P0 · 决策清单</h2>
+<p>公式沿用模板：目标仓位 = 基准仓位 × 仓位系数 × 风险乘数 × 行业系数。本期行业系数：煤炭 ×0.75、铝 ×0.75、黄金 ×0.75、港股医药 ×0.75（20 日均跌，无一给 ×1.0）；风险乘数：7 只暂记 1.0。截图没有给每只的基准仓位和股数，所以这里不编具体股数和金额，只给动作：</p>
+<ul><li><b>维持不动：</b>云铝、山煤、中孚、潞安、平煤——不追、不加同方向的煤炭铝股。</li>
+<li><b>只看不买：</b>恒生新药、黄金股 ETF——不补仓。</li>
+<li><b>下个触发再议：</b>云铝收盘站上 27.28 元（20 日高）且量超 20 日均量，或跌破 24.65 元（60 日收盘低点）且放量；恒生新药收盘跌破 1.199 元（20 日低）则涨势逻辑进一步证伪，反之收复 1.333 元（MA20）才谈企稳。</li></ul></div>
+
+<div class="daily-card"><h2>P6 · 焦点深挖</h2>
+<h3>① 云铝股份 —— 放量反弹，算反转还是反弹？</h3>
+<p>当日 +3.44%、主力 +1.41 亿元、量超 20 日均量，三条都向好；但 MACD -0.358 仍略低于信号线 -0.352，价格 26.17 元仍低于 MA60 26.46 元，60 日最大回撤 -15.09% 未修复。我的判断：算反弹，不算反转。证伪线在上：连续收盘 &gt;27.28 元且放量；在下：收盘 &lt;24.65 元且放量。</p>
+<h3>② 恒生新药 —— 卫星仓当日为什么没对冲？</h3>
+<p>当日 -4.82%、主力 -1.27 亿元、5 日 -9.64%、20 日 -17.13%，RSI 33.5、MACD 偏空。它是组合里唯一港股医药敞口，波动天然大于煤炭铝股，当日与 A 股资源线背离，说明“分散方向”不等于“当日对冲”。不因为跌得多就补仓，补仓条件是先企稳：收盘回 MA20（1.333 元）之上且资金流出收窄，两个条件缺一不可。</p></div>
+
+<div class="daily-card"><h2>附录 C · 降级 N/A 清单</h2>
+<ul class="small">
+<li>沪指 / 恒指 10-27 收盘、美股可比：本轮未拿到可核实值，记 N/A，不用上期值代替。</li>
+<li>持仓股数、成本、市值占比、组合总收益：截图未给，记 N/A；本报告的“简单平均 / 简单合计”不是组合收益率。</li>
+<li>PanWatch 报价与基本面：腾讯报价重试耗尽、东财基本面 502，仍失败；估值用 Finnhub 快照兜底，收盘价用 Finnhub 与 PanWatch 双源对照。</li>
+<li>云铝分红金额、除权日；山煤 / 平煤 Q3 说明会具体时间；潞安三季报日期：事件标题未给，记待补，不沿用模板里的日期。</li>
+<li>筹码分布、户均持股：PanWatch 返回 null，记 N/A；ETF 份额、ETF 持仓明细：本轮未跑，记 N/A。</li>
+<li>铝价 A00 10-27 现货价、沪铝日线相关系数、同行 PE 对比：本轮未做，记 N/A，不编。</li>
+<li>数据来源：PanWatch marketdata 包（日 K、资金流、两融、股东、事件，2026-10-27 实测，文件见 panwatch_holdings_2026-10-27.json）；Finnhub 盘后快照（收盘价、PE、市值）；微信截图（持仓名单与 12:56 价）。</li>
+</ul></div>
+<p class="small" style="text-align:center">本报告只做信息整理与分析，不构成投资建议。 · 生成时间：2026-10-27 盘后，面向 2026-10-28 盘前。本期 2026-10-28 08:30 复核：PanWatch 新抓 7 只日 K 仍以 2026-10-27 为最新一根、与报告一致；持仓无变动。</p>
+      </div>
+    </div>
+  </section>
+  <footer>更新于 2026-10-27 晚 · V2.21。个股内容不构成投资建议；不展示资产金额。</footer>
+</div>
+<script src="search.js"></script>
+<button class="back-top" id="backTop" aria-label="回到顶部">↑</button><script>document.getElementById("backTop").addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){if(window.scrollY>0){window.scrollTo(0,0);}},700);});</script>
+<script>function setDailyTab(key){document.querySelectorAll("#dailytabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===key));document.querySelectorAll(".jobpanel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+key));}</script>
+</body>
+</html>
