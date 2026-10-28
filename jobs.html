@@ -112,6 +112,19 @@
   [data-theme="dark"] .cat .count,[data-theme="dark"] .note{color:#9C9484}
   [data-theme="dark"] .fb input{background:#221D18;color:#E8E2D6;border-color:#3D362C}
   [data-theme="dark"] .fb input::placeholder{color:#9C9484}
+
+/* V2.19 版式统一 */
+.search{flex:1 1 100%;margin-left:0;margin-top:10px}
+.search input{width:100%;box-sizing:border-box}
+.search-results{width:100%;left:0;right:auto;box-sizing:border-box}
+.ph{border:1.5px dashed var(--line);border-radius:12px;background:var(--card);padding:14px 16px;min-height:96px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.ph p{margin:0;line-height:1.8;font-size:14px;color:var(--text)}
+.ph-tag{display:inline-block;align-self:flex-start;border:1px solid var(--line);border-radius:999px;color:var(--muted);padding:2px 10px;font-size:12px}
+.pill-missing{display:inline-block;border:1px dashed var(--line);border-radius:999px;padding:1px 10px;font-size:13px;font-weight:400;color:var(--muted)}
+[data-theme="dark"] .ph{border-color:#57493A}
+[data-theme="dark"] .pill-missing{border-color:#57493A}
+@media(max-width:640px){.statgrid{grid-template-columns:repeat(2,1fr)}.report-grid{grid-template-columns:1fr}nav{flex-wrap:wrap}.cat-links{flex-wrap:wrap}}
+@media(max-width:400px){.statgrid{grid-template-columns:1fr}}
 </style>
 <script>try{var _t=localStorage.getItem("theme");if(_t==="dark"){document.documentElement.setAttribute("data-theme","dark")}}catch(e){}</script>
 </head>
@@ -205,9 +218,9 @@
       <button class="more-btn" id="applied-more" style="display:none" onclick="toggleApplied()">展开其余 ↓</button>
     </div>
 
-    <p style="color:#666;line-height:1.8;font-size:14px">说明：每张卡片都标明来源平台并附详情链接，点“去投递”直接打开该岗位的详情页（即平台的可投递页面），你在平台完成投递后，点卡片上的“我已在平台投递”，本页会在你自己的浏览器里记下投递时间；反馈也是同样在本页本地记录，收到招聘单位反馈请及时在这里记下来。本页本身不向招聘方提交申请，投递动作发生在招聘平台页面。</p>
+    
   </div>
-  <footer>更新于 2026-10-27 晚 · V2.17。去投递直接打开岗位详情页（平台可投递页面），投递标记与反馈为本地记录。</footer>
+  <footer>更新于 2026-10-27 晚 · V2.19。</footer>
 </div>
 <script>
 
@@ -239,7 +252,7 @@ function renderApplied(){
   const listEl = document.getElementById("applied-list"), restEl = document.getElementById("applied-rest"), moreEl = document.getElementById("applied-more");
   if(!listEl) return;
   if(!list.length){
-    listEl.innerHTML = '<div class="item"><p>还没有在本页标记为已投递的岗位。在对应日期 Tab 里完成平台投递后，点卡片上的“我已在平台投递”，这里就会按投递时间从近到远出现。</p></div>';
+    listEl.innerHTML = '<div class="ph"><span class="ph-tag">暂无</span><p>还没有在本页标记为已投递的岗位。在对应日期 Tab 里完成平台投递后，点卡片上的“我已在平台投递”，这里就会按投递时间从近到远出现。</p></div>';
     restEl.innerHTML = ""; restEl.style.display = "none"; moreEl.style.display = "none"; return;
   }
   const row = j => `<div class="item"><div class="meta">投递时间：${j.st.applied} · 发布日期：${j.tab} · 反馈：${j.st.feedback ? j.st.feedback + "（" + (j.st.fbTime||"") + "）" : "暂无反馈"}</div><h3>${j.title}</h3>${j.url ? `<p><a href="${j.url}" target="_blank" rel="noopener" style="color:#000000;font-weight:700">打开岗位详情页 →</a></p>` : "<p>该岗位暂无详情链接</p>"}<p><button class="mark-btn" onclick="cancelApplied('${j.id}')">取消投递标记</button></p></div>`;
